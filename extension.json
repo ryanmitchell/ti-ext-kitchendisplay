@@ -1,0 +1,13 @@
+{
+  "code": "thoughtco.runningorder",
+  "name": "Running order",
+  "description": "Provides a running view of orders ordered by time, with the ability to mark orders as complete with one click.",
+  "version": "v1.0.0",
+  "author": "ryanmitchell",
+  "icon": {
+    "class": "fa fa-thermometer",
+    "backgroundColor": "#111",
+    "color": "#FFF"
+  },
+  "homepage": "https://github.com/thoughtco/ti-ext-runningorder"
+}
