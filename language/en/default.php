@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'text_title' => 'Order Summary'
+    'text_title' => 'Running order'
 
 ];

@@ -1,4 +1,4 @@
-<?php namespace Thoughtco\Ordersummary;
+<?php namespace Thoughtco\Runningorder;
 
 use DB;
 use Event;
@@ -9,7 +9,7 @@ use Thoughtco\Irtouch\Classes\LocationRequest;
 use Thoughtco\Irtouch\Resources\TouchJsonClient;
 
 /**
- * IRTOUCH Extension Information File
+ * Extension Information File
 **/
 class Extension extends BaseExtension
 {
@@ -21,8 +21,8 @@ class Extension extends BaseExtension
     public function registerPermissions()
     {
         return [
-            'Thoughtco.Ordersummary.View' => [
-                'description' => 'View order summary',
+            'Thoughtco.Runningorder.View' => [
+                'description' => 'View running order',
                 'group' => 'module',
             ],
         ];
@@ -36,9 +36,9 @@ class Extension extends BaseExtension
                     'summary' => [
                         'priority' => 10,
                         'class' => 'pages',
-                        'href' => admin_url('thoughtco/ordersummary/summary'),
-                        'title' => lang('lang:thoughtco.ordersummary::default.text_title'),
-                        'permission' => 'Thoughtco.Ordersummary.View',
+                        'href' => admin_url('thoughtco/runningorder/summary'),
+                        'title' => lang('lang:thoughtco.runningorder::default.text_title'),
+                        'permission' => 'Thoughtco.Runningorder.View',
                     ],
                 ],
             ],
