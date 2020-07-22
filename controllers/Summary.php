@@ -95,9 +95,12 @@ class Summary extends \Admin\Classes\AdminController
 	    // get orders for the day requested
 	    $getOrders = Orders_model::where(function($query) use ($selectedLocation){
 		    $query
-		    	->where('location_id', $selectedLocation)
 				->where('status_id', '<=', 1)
 		    	->where('order_date', Carbon::now()->format('Y-m-d'));
+		    	
+		    if (AdminLocation::getId() !== NULL){
+		    	$query->where('location_id', $selectedLocation);
+		    }
 		})
 		->orderBy('order_time', 'asc')
 		->limit(30)
