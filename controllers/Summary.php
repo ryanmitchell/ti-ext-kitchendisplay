@@ -183,7 +183,7 @@ class Summary extends \Admin\Classes\AdminController
 				                <td>'.$running['dishes'].'</td>
 				                <td>'.$running['comment'].'</td>
 				                <td>&pound;'.$running['value'].'</td>
-				                <td><a class="btn btn-primary" href="'.admin_url('thoughtco/runningorder/summary?complete='.$running['id']).'">Complete</a>
+				                <td><a class="btn btn-primary" href="'.admin_url('thoughtco/runningorder/summary?complete='.$running['id']).'">Complete</a></td>
 				            </tr>
 			';
 			
