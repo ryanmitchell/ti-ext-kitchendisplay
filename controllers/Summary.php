@@ -93,9 +93,9 @@ class Summary extends \Admin\Classes\AdminController
 	    if ($selectedLocation === false) return '<br /><h2>Location not found</h2>';
 	    
 	    // get orders for the day requested
-	    $getOrders = Orders_model::where(function($query) use ($locationParam){
+	    $getOrders = Orders_model::where(function($query) use ($selectedLocation){
 		    $query
-		    	->where('location_id', $locationParam)
+		    	->where('location_id', $selectedLocation)
 				->where('status_id', '<=', 1)
 		    	->where('order_date', Carbon::now()->format('Y-m-d'));
 		})
