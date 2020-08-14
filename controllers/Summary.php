@@ -99,7 +99,7 @@ class Summary extends \Admin\Classes\AdminController
 		    	->where('order_date', Carbon::now()->format('Y-m-d'));
 		    	
 		    if (AdminLocation::getId() !== NULL){
-		    	$query->where('location_id', $selectedLocation);
+		    	$query->where('location_id', $selectedLocation->location_id);
 		    }
 		})
 		->orderBy('order_time', 'asc')
