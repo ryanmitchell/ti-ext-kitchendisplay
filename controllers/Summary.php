@@ -163,15 +163,15 @@ class Summary extends \Admin\Classes\AdminController
 				
 				    <table class="table table-striped" width="100%">
 				        <thead>
-				        <tr>
-				            <th width="10%">Time</th>
-				            <th>Name</th>
-				            <th>Phone</th>
-				            <th>Order</th>
-				            <th>Comments</th>
-				            <th>Total</th>
-				            <th></th>
-				        </tr>
+					        <tr>
+					            <th width="10%">Time</th>
+					            <th>Name</th>
+					            <th>Phone</th>
+					            <th>Order</th>
+					            <th>Comments</th>
+					            <th>Total</th>
+					            <th></th>
+					        </tr>
 				        </thead>
 				        <tbody>
 		';
