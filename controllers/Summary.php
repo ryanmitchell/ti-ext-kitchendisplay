@@ -63,7 +63,12 @@ class Summary extends \Admin\Classes\AdminController
     	foreach (Locations_model::get() as $l){
      
 			if (AdminLocation::getId() === NULL || AdminLocation::getId() == $l->location_id){
-				$locations[$l->location_id] = $l->location_name;
+				
+				if ($l->location_status){
+				
+					$locations[$l->location_id] = $l->location_name;
+				
+				}
 			}
     	
     	}
