@@ -5,6 +5,7 @@ namespace Thoughtco\Runningorder\Controllers;
 use AdminMenu;
 use Admin\Facades\AdminLocation;
 use Admin\Models\Locations_model;
+use Admin\Models\Menus_model;
 use Admin\Models\Orders_model;
 use Admin\Models\Statuses_model;
 use ApplicationException;
@@ -158,14 +159,13 @@ class Summary extends \Admin\Classes\AdminController
 	    foreach ($getOrders as $o){
 		    
 		    $runningDishes = [];
-		    $runningDishOptions = [];
 		    
 		    $menuItems = $o->getOrderMenus();
    			$menuItemsOptions = $o->getOrderMenuOptions();
 
 	        foreach ($menuItems as $menu){
 		        $menu->category_priority = 100;
-		        $menuModel = \Admin\Models\Menus_model::with('categories')->where('menu_id', $menu->menu_id)->first();
+		        $menuModel = Menus_model::with('categories')->where('menu_id', $menu->menu_id)->first();
 		        if (isset($menuModel->categories) && sizeof($menuModel->categories) > 0){
 			        $menu->category_priority = $menuModel->categories[0]->priority;
 		        }
@@ -177,26 +177,22 @@ class Summary extends \Admin\Classes\AdminController
 	        }); 
 		    
 			foreach ($menuItems as $menuItem){
-				if (!isset($runningDishes[$menuItem->menu_id])) $runningDishes[$menuItem->menu_id] = ['menu_id'=>$menuItem->menu_id,'quantity' => 0, 'name' => $menuItem->name];
-				$runningDishes[$menuItem->menu_id]['quantity'] += $menuItem->quantity;
+				
+				$runningDishes[] = '<strong>'.$menuItem->quantity.'x '.$menuItem->name.'</strong>';
+
 				if ($menuItemOptions = $menuItemsOptions->get($menuItem->order_menu_id)) { 
 					foreach ($menuItemOptions as $menuItemOption) { 
-						$runningDishOptions[$menuItem->menu_id] = [
-							'optionmenu_id' => $menuItemOption->menu_id, 
-							'quantity'=>$menuItemOption->quantity, 
-							'optionname'=>$menuItemOption->order_option_name
-						];
+						$runningDishes[] = $menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
                     }
                 }
+                
+                if ($menuItem->comment != ''){
+	            	$runningDishes[] = '<em>'.$menuItem->comment.'</em>';   
+                }
+                
+                $runningDishes[] = '';
+                
       		}
-			
-			$runningDishesOutput = [];
-			foreach ($runningDishes as $dish){
-				$runningDishesOutput[] = '<b>'.$dish['quantity'].'x '.$dish['name'].'</b>';
-				foreach ($runningDishOptions as $dishOption) { 
-					if ($dishOption['optionmenu_id'] == $dish['menu_id']) $runningDishesOutput[] = $dishOption['quantity'].'x '.$dishOption['optionname'];
-        		}  
-			}
 			
 			foreach ($o->getOrderTotals() as $total){
 		        if ($total->code == 'total' || $total->code == 'order_total'){
@@ -206,7 +202,7 @@ class Summary extends \Admin\Classes\AdminController
 						'name' => $o->first_name.' '.$o->last_name,
 						'phone' => $o->telephone,
 						'comment' => $o->comment,
-						'dishes' => implode('<br />', $runningDishesOutput),
+						'dishes' => implode('<br />', $runningDishes),
 						'value' => number_format($total->value, 2),
 						'status_name'=>$o->status_name,
 						'status_color'=>$o->status_color
