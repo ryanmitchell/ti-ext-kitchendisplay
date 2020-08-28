@@ -238,7 +238,7 @@ public function getLocations()
 				                <td>'.$running['comment'].'</td>
 				                <td>'.currency_format($running['value']).'</td>
 				                <td><span class="label label-default" style="background-color:'.$running['status_color'].'";>'.$running['status_name'].'</span></td>
-				                <td>
+				                <td align="right">
 				                	<a class="btn btn-primary" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$running['id']).'">Prep</a>
 									<a class="btn btn-secondary ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$running['id']).'">Ready</a>
 									<a class="btn btn-success ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$running['id']).'">Complete</a>
