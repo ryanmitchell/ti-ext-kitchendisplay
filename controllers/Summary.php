@@ -150,9 +150,13 @@ class Summary extends \Admin\Classes\AdminController
 		$processingStatuses = setting('processing_order_status');
 		$completedStatuses = setting('completed_order_status');
 		
-	    $prepColor = $statusColors[array_shift($processingStatuses)];
-	    $readyColor = $statusColors[array_pop($processingStatuses)];
-	    $completedColor = $statusColors[array_shift($completedStatuses)];
+		$prepStatus = array_shift($processingStatuses);
+		$readyStatus = array_pop($processingStatuses);
+		$completedStatus = array_shift($completedStatuses);
+		
+	    $prepColor = $statusColors[$prepStatus];
+	    $readyColor = $statusColors[$readyStatus];
+	    $completedColor = $statusColors[$completedStatus];
 		
 		$outputRunning = [];
 		
@@ -196,81 +200,29 @@ class Summary extends \Admin\Classes\AdminController
 			
 			foreach ($o->getOrderTotals() as $total){
 		        if ($total->code == 'total' || $total->code == 'order_total'){
-					$outputRunning[] = [
+					$outputRunning[] = (object)[
 						'id' => $o->order_id,
 						'time' => $o->order_time,
 						'name' => $o->first_name.' '.$o->last_name,
 						'phone' => $o->telephone,
 						'comment' => $o->comment,
-						'dishes' => implode('<br />', $runningDishes),
-						'value' => number_format($total->value, 2),
+						'dishes' => $runningDishes,
+						'value' => currency_format($total->value),
 						'status_name'=>$o->status_name,
-						'status_color'=>$o->status_color
+						'status_color'=>$o->status_color,
+						'buttons' => '
+		                	<a class="btn '.($o->status_id != $prepStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$o->order_id).'" style="background-color:'.$prepColor.'";' : 'btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_prep').'</a>
+							<a class="btn '.($o->status_id != $readyStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$o->order_id).'" style="background-color:'.$readyColor.'";' : 'btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_ready').'</a>
+							<a class="btn '.($o->status_id != $completedStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$o->order_id).'" style="background-color:'.$completedColor.'";' : 'btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_complete').'</a>
+						',
 					];							
 				}
 			}
 		    
 		}
-	    
-	    $html = '
-	    <p><br /> </p>
-	    
-		<div class="form-fields">
 		
-			<div class="form-group" style="width:100%">
-				<div class="table-responsive">
-				
-				    <table class="table table-striped" width="100%">
-				        <thead>
-					        <tr>
-					            <th>'.lang('lang:thoughtco.runningorder::default.column_id').'</th>
-					            <th>'.lang('lang:thoughtco.runningorder::default.column_time').'</th>
-					            <th>'.lang('lang:thoughtco.runningorder::default.column_name').'</th>
-					            <th>'.lang('lang:thoughtco.runningorder::default.column_phone').'</th>
-					            <th width="15%">'.lang('lang:thoughtco.runningorder::default.column_order').'</th>
-					            <th>'.lang('lang:thoughtco.runningorder::default.column_comments').'</th>
-					            <th>'.lang('lang:thoughtco.runningorder::default.column_total').'</th>
-					            <th>'.lang('lang:thoughtco.runningorder::default.column_status').'</th>
-					            <th></th>
-					        </tr>
-				        </thead>
-				        <tbody>
-		';
-		
-		foreach ($outputRunning as $running){
-
-			$html .= '
-				            <tr>
-				                <td>'.$running['id'].'</td>
-				                <td>'.$running['time'].'</td>
-				                <td>'.$running['name'].'</td>
-				                <td>'.$running['phone'].'</td>
-				                <td>'.$running['dishes'].'</td>
-				                <td>'.$running['comment'].'</td>
-				                <td>'.currency_format($running['value']).'</td>
-				                <td><span class="label label-default" style="background-color:'.$running['status_color'].'";>'.$running['status_name'].'</span></td>
-				                <td align="right">
-				                	<a class="btn" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$running['id']).'" style="background-color:'.$prepColor.'";>'.lang('lang:thoughtco.runningorder::default.btn_prep').'</a>
-									<a class="btn ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$running['id']).'" style="background-color:'.$readyColor.'";>'.lang('lang:thoughtco.runningorder::default.btn_ready').'</a>
-									<a class="btn ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$running['id']).'" style="background-color:'.$completedColor.'";>'.lang('lang:thoughtco.runningorder::default.btn_complete').'</a>
-				                </td>
-				            </tr>
-			';
-			
-		}
-		
-		$html .= '
-				        </tbody>
-				    </table>
-				    
-				</div>
-			</div>
-
-	    </div>
-	    ';
-	    
-	    return $html;
-	    
+		return $outputRunning;
+			    
     }
     
 }

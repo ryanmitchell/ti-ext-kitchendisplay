@@ -44,7 +44,36 @@
     <?php 
         }
     ?>	 
-			    	
-    <?= $this->renderResults(); ?>
     
+    <p><br /> </p>
+    
+	<div class="form-fields">
+	<?php foreach ($this->renderResults() as $order){ ?>
+	
+		<div class="card m-3" style="border-right: 5px solid <?= $order->status_color; ?>">
+			<div class="card-body" style="background:#fff;">
+				
+				<h5 class="card-title"><?= $order->name ?> (<?= $order->phone; ?>)</h5>
+				<h6 class="card-subtitle text-muted">#<?= $order->id ?> / <?= $order->time ?> / <?= $order->value; ?></h6>
+				<h6 class="card-subtitle mt-1 mb-2"><?= $order->status_name; ?></h6>
+				
+				<p><br />
+				<?php foreach ($order->dishes as $dish){ ?>
+				<?= $dish; ?><br />
+				<?php } ?>
+				</p>
+				
+				<p><em><?= $order->comment; ?></em></p>
+				
+				<div class="btn-group mt-5">
+					<?= $order->buttons ?>
+				</div>
+								
+			</div>
+		</div>
+	
+		
+	<?php } ?>
+	</div>
+		    	    
 </div>
