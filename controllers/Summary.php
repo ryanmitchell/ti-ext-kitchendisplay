@@ -181,7 +181,11 @@ class Summary extends \Admin\Classes\AdminController
 				$runningDishes[$menuItem->menu_id]['quantity'] += $menuItem->quantity;
 				if ($menuItemOptions = $menuItemsOptions->get($menuItem->order_menu_id)) { 
 					foreach ($menuItemOptions as $menuItemOption) { 
-						$runningDishOptions[$menuItem->menu_id] = ['optionmenu_id'=>$menuItemOption->menu_id,'quantity'=>$menuItemOption->quantity,'optionname'=>$menuItemOption->order_option_name];
+						$runningDishOptions[$menuItem->menu_id] = [
+							'optionmenu_id' => $menuItemOption->menu_id, 
+							'quantity'=>$menuItemOption->quantity, 
+							'optionname'=>$menuItemOption->order_option_name
+						];
                     }
                 }
       		}
@@ -223,14 +227,14 @@ class Summary extends \Admin\Classes\AdminController
 				    <table class="table table-striped" width="100%">
 				        <thead>
 					        <tr>
-					            <th>ID</th>
-					            <th>Time</th>
-					            <th>Name</th>
-					            <th>Phone</th>
-					            <th width="15%">Order</th>
-					            <th>Comments</th>
-					            <th>Total</th>
-					            <th>Status</th>
+					            <th>'.lang('lang:thoughtco.runningorder::default.column_id').'</th>
+					            <th>'.lang('lang:thoughtco.runningorder::default.column_time').'</th>
+					            <th>'.lang('lang:thoughtco.runningorder::default.column_name').'</th>
+					            <th>'.lang('lang:thoughtco.runningorder::default.column_phone').'</th>
+					            <th width="15%">'.lang('lang:thoughtco.runningorder::default.column_order').'</th>
+					            <th>'.lang('lang:thoughtco.runningorder::default.column_comments').'</th>
+					            <th>'.lang('lang:thoughtco.runningorder::default.column_total').'</th>
+					            <th>'.lang('lang:thoughtco.runningorder::default.column_status').'</th>
 					            <th></th>
 					        </tr>
 				        </thead>
@@ -250,9 +254,9 @@ class Summary extends \Admin\Classes\AdminController
 				                <td>'.currency_format($running['value']).'</td>
 				                <td><span class="label label-default" style="background-color:'.$running['status_color'].'";>'.$running['status_name'].'</span></td>
 				                <td align="right">
-				                	<a class="btn" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$running['id']).'" style="background-color:'.$prepColor.'";>Prep</a>
-									<a class="btn ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$running['id']).'" style="background-color:'.$readyColor.'";>Ready</a>
-									<a class="btn ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$running['id']).'" style="background-color:'.$completedColor.'";>Complete</a>
+				                	<a class="btn" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$running['id']).'" style="background-color:'.$prepColor.'";>'.lang('lang:thoughtco.runningorder::default.btn_prep').'</a>
+									<a class="btn ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$running['id']).'" style="background-color:'.$readyColor.'";>'.lang('lang:thoughtco.runningorder::default.btn_ready').'</a>
+									<a class="btn ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$running['id']).'" style="background-color:'.$completedColor.'";>'.lang('lang:thoughtco.runningorder::default.btn_complete').'</a>
 				                </td>
 				            </tr>
 			';
