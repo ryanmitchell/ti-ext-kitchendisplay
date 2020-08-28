@@ -12,6 +12,7 @@ return [
     'column_total' => 'Total',
     'column_status' => 'Status',
 
+	'btn_view' => 'View',
     'btn_prep' => 'Prep',
     'btn_ready' => 'Ready',
     'btn_complete' => 'Complete',
