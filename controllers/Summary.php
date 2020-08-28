@@ -222,9 +222,9 @@ public function getLocations()
 				                <td>'.$running['comment'].'</td>
 				                <td>'.currency_format($running['value']).'</td>
 				                <td><span class="label label-default" style="background-color:'.$running['status_color'].'";>'.$running['status_name'].'</span></td>
-				                <td><a class="btn btn-primary" href="'.admin_url('thoughtco/runningorder/summary?prep='.$running['id']).'">Prep</a></td>
-				                <td><a class="btn btn-primary" href="'.admin_url('thoughtco/runningorder/summary?ready='.$running['id']).'">Ready</a></td>
-				                <td><a class="btn btn-primary" href="'.admin_url('thoughtco/runningorder/summary?complete='.$running['id']).'">Complete</a></td>
+				                <td><a class="btn btn-primary" style="background-color:#00C0EF" href="'.admin_url('thoughtco/runningorder/summary?prep='.$running['id']).'">Prep</a></td>
+				                <td><a class="btn btn-primary" style="background-color:#563DF2" href="'.admin_url('thoughtco/runningorder/summary?ready='.$running['id']).'">Ready</a></td>
+				                <td><a class="btn btn-primary" style="background-color:#00A65A" href="'.admin_url('thoughtco/runningorder/summary?complete='.$running['id']).'">Complete</a></td>
 				            </tr>
 			';
 			
