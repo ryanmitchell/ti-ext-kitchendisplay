@@ -15,7 +15,7 @@
 		    	
 	        <div class="d-sm-flex flex-sm-wrap w-100 no-gutters">
 		        
-				<div class="col col-sm-2 mr-3">
+				<div class="col col-sm-3 mr-3">
 					
 					<div class="filter-scope date form-group">
 						
@@ -29,7 +29,7 @@
             		
 		        </div>	       
 		        		        
-				<div class="col col-sm-2 mr-3">
+				<div class="col col-sm-3 mr-3">
 					
 					<button type="submit" class="btn btn-primary">View</button>
 					
