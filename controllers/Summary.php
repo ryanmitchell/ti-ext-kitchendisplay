@@ -8,8 +8,9 @@ use Admin\Models\Locations_model;
 use Admin\Models\Orders_model;
 use ApplicationException;
 use Carbon\Carbon;
-use Igniter\Flame\Currency;
 use DB;
+use Igniter\Flame\Currency;
+use Request;
 
 /**
  * Order Summary
@@ -29,37 +30,52 @@ class Summary extends \Admin\Classes\AdminController
     
     public function index()
     {
-	    // valid sale and complete
-	    if (isset($_GET['complete'])){
-	    	$sale = Orders_model::where('order_id', $_GET['complete'])->first();
-	    	if ($sale !== NULL){
-			    $status = $sale->updateOrderStatus(5);
-		    }	
-		    return $this->redirect('thoughtco/runningorder/summary');
+	    
+	    // url params and defaults
+	    $action = Request::get('action', '');
+	    $orderId = Request::get('order', -1);
+	    	    
+	    // if we have an action and an order id
+	    if ($action != '' and $orderId > -1){
+		    
+		    $sale = Orders_model::where('order_id', $orderId)->first();
+		    
+		    $processingStatuses = setting('processing_order_status');
+		    $completedStatuses = setting('completed_order_status');
+		    	    
+		    // valid sale and complete
+		    if ($action == 'complete'){
+		    	if ($sale !== NULL){
+				    $status = $sale->updateOrderStatus(array_shift($completedStatuses));
+			    }	
+			    return $this->redirect('thoughtco/runningorder/summary');
+		    }
+		    
+	    	// valid sale and preparation
+		    if ($action == 'prep'){
+		    	if ($sale !== NULL){
+				    $status = $sale->updateOrderStatus(array_shift($processingStatuses));
+			    }	
+			    return $this->redirect('thoughtco/runningorder/summary');
+		    }
+		    
+	    	// valid sale and ready
+		    if ($action == 'ready'){
+		    	if ($sale !== NULL){
+				    $status = $sale->updateOrderStatus(array_pop($processingStatuses));
+			    }	
+			    return $this->redirect('thoughtco/runningorder/summary');
+		    }
+	    
 	    }
-    	// valid sale and preparation
-	    if (isset($_GET['prep'])){
-	    	$sale = Orders_model::where('order_id', $_GET['prep'])->first();
-	    	if ($sale !== NULL){
-			    $status = $sale->updateOrderStatus(3);
-		    }	
-		    return $this->redirect('thoughtco/runningorder/summary');
-	    }
-    	// valid sale and ready
- 	    if (isset($_GET['ready'])){
-	    	$sale = Orders_model::where('order_id', $_GET['ready'])->first();
-	    	if ($sale !== NULL){
-			    $status = $sale->updateOrderStatus(20);
-		    }	
-		    return $this->redirect('thoughtco/runningorder/summary');
-	    }
+	    
 	}
 	
 	public function getParams(){
 		
 	    $locations = $this->getLocations();
 	    	   
-	    $locationParam = isset($_GET['location']) ? $_GET['location'] : array_keys($locations)[0];
+	    $locationParam = Request::get('location', array_keys($locations)[0]);
 	    
 	    return [$locationParam];
 	    	    
@@ -109,11 +125,14 @@ public function getLocations()
 	    
 	    if ($selectedLocation === false) return '<br /><h2>Location not found</h2>';
 	    
+	    // what statuses do we ignore?
+	    $ignoreStatuses = setting('completed_order_status');
+	    $ignoreStatuses[] = setting('canceled_order_status');
+	    
 	    // get orders for the day requested
-	    $getOrders = Orders_model::where(function($query) use ($selectedLocation){
+	    $getOrders = Orders_model::where(function($query) use ($selectedLocation, $ignoreStatuses){
 		    $query
-          ->whereNotIn('status_id', [5, 9]);
-/*		    	->where('order_date', Carbon::now()->format('Y-m-d'));*/
+				->whereNotIn('status_id', $ignoreStatuses);
 		    	
 		    if (AdminLocation::getId() !== NULL){
 		    	$query->where('location_id', $selectedLocation->location_id);
@@ -140,6 +159,7 @@ public function getLocations()
 			        $menu->category_priority = $menuModel->categories[0]->priority;
 		        }
 	        }
+	        
 	        $menuItems = $menuItems->toArray();
 	        uasort($menuItems, function($a, $b){
 		        return $a->category_priority > $b->category_priority ? 1 : -1;
@@ -149,23 +169,22 @@ public function getLocations()
 				if (!isset($runningDishes[$menuItem->menu_id])) $runningDishes[$menuItem->menu_id] = ['menu_id'=>$menuItem->menu_id,'quantity' => 0, 'name' => $menuItem->name];
 				$runningDishes[$menuItem->menu_id]['quantity'] += $menuItem->quantity;
 				if ($menuItemOptions = $menuItemsOptions->get($menuItem->order_menu_id)) { 
-            foreach ($menuItemOptions as $menuItemOption) { 
-              $runningDishOptions[$menuItem->menu_id] = ['optionmenu_id'=>$menuItemOption->menu_id,'quantity'=>$menuItemOption->quantity,'optionname'=>$menuItemOption->order_option_name];
-                             }
+					foreach ($menuItemOptions as $menuItemOption) { 
+						$runningDishOptions[$menuItem->menu_id] = ['optionmenu_id'=>$menuItemOption->menu_id,'quantity'=>$menuItemOption->quantity,'optionname'=>$menuItemOption->order_option_name];
                     }
-      }
+                }
+      		}
 			
 			$runningDishesOutput = [];
 			foreach ($runningDishes as $dish){
 				$runningDishesOutput[] = '<b>'.$dish['quantity'].'x '.$dish['name'].'</b>';
 				foreach ($runningDishOptions as $dishOption) { 
-          if ($dishOption['optionmenu_id'] == $dish['menu_id']) $runningDishesOutput[] = $dishOption['quantity'].'x '.$dishOption['optionname'];
-        }  
+					if ($dishOption['optionmenu_id'] == $dish['menu_id']) $runningDishesOutput[] = $dishOption['quantity'].'x '.$dishOption['optionname'];
+        		}  
 			}
 			
 			foreach ($o->getOrderTotals() as $total){
-        if ($total->code == 'total' || $total->code == 'order_total'){
-										
+		        if ($total->code == 'total' || $total->code == 'order_total'){
 					$outputRunning[] = [
 						'id' => $o->order_id,
 						'time' => $o->order_time,
@@ -177,7 +196,6 @@ public function getLocations()
 						'status_name'=>$o->status_name,
 						'status_color'=>$o->status_color
 					];							
-					
 				}
 			}
 		    
@@ -201,10 +219,8 @@ public function getLocations()
 					            <th width="15%">Order</th>
 					            <th>Comments</th>
 					            <th>Total</th>
-                      <th>Status</th>
-                      <th>.</th>
-                      <th>..</th>
-                      <th>...</th>
+					            <th>Status</th>
+					            <th></th>
 					        </tr>
 				        </thead>
 				        <tbody>
@@ -222,9 +238,11 @@ public function getLocations()
 				                <td>'.$running['comment'].'</td>
 				                <td>'.currency_format($running['value']).'</td>
 				                <td><span class="label label-default" style="background-color:'.$running['status_color'].'";>'.$running['status_name'].'</span></td>
-				                <td><a class="btn btn-primary" style="background-color:#00C0EF" href="'.admin_url('thoughtco/runningorder/summary?prep='.$running['id']).'">Prep</a></td>
-				                <td><a class="btn btn-primary" style="background-color:#563DF2" href="'.admin_url('thoughtco/runningorder/summary?ready='.$running['id']).'">Ready</a></td>
-				                <td><a class="btn btn-primary" style="background-color:#00A65A" href="'.admin_url('thoughtco/runningorder/summary?complete='.$running['id']).'">Complete</a></td>
+				                <td>
+				                	<a class="btn btn-primary" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$running['id']).'">Prep</a>
+									<a class="btn btn-secondary ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$running['id']).'">Ready</a>
+									<a class="btn btn-success ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$running['id']).'">Complete</a>
+				                </td>
 				            </tr>
 			';
 			
