@@ -6,6 +6,7 @@ use AdminMenu;
 use Admin\Facades\AdminLocation;
 use Admin\Models\Locations_model;
 use Admin\Models\Orders_model;
+use Admin\Models\Statuses_model;
 use ApplicationException;
 use Carbon\Carbon;
 use DB;
@@ -81,7 +82,7 @@ class Summary extends \Admin\Classes\AdminController
 	    	    
     }
 
-public function getLocations()
+	public function getLocations()
     {
     
     	if ($this->locations) return $this->locations;
@@ -141,6 +142,16 @@ public function getLocations()
 		->orderBy('order_time', 'asc')
 		->limit(30)
 		->get();
+		
+		// build colours
+		$statusColors = Statuses_model::all()->pluck('status_color', 'status_id');
+		
+		$processingStatuses = setting('processing_order_status');
+		$completedStatuses = setting('completed_order_status');
+		
+	    $prepColor = $statusColors[array_shift($processingStatuses)];
+	    $readyColor = $statusColors[array_pop($processingStatuses)];
+	    $completedColor = $statusColors[array_shift($completedStatuses)];
 		
 		$outputRunning = [];
 		
@@ -239,9 +250,9 @@ public function getLocations()
 				                <td>'.currency_format($running['value']).'</td>
 				                <td><span class="label label-default" style="background-color:'.$running['status_color'].'";>'.$running['status_name'].'</span></td>
 				                <td align="right">
-				                	<a class="btn btn-primary" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$running['id']).'">Prep</a>
-									<a class="btn btn-secondary ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$running['id']).'">Ready</a>
-									<a class="btn btn-success ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$running['id']).'">Complete</a>
+				                	<a class="btn" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$running['id']).'" style="background-color:'.$prepColor.'";>Prep</a>
+									<a class="btn ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$running['id']).'" style="background-color:'.$readyColor.'";>Ready</a>
+									<a class="btn ml-3" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$running['id']).'" style="background-color:'.$completedColor.'";>Complete</a>
 				                </td>
 				            </tr>
 			';
