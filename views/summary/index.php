@@ -48,32 +48,33 @@
     <p><br /> </p>
     
 	<div class="form-fields">
+		<div class="row">
 	<?php foreach ($this->renderResults() as $order){ ?>
-	
-		<div class="card m-3" style="border-right: 5px solid <?= $order->status_color; ?>">
-			<div class="card-body" style="background:#fff;">
-				
-				<h5 class="card-title"><?= $order->name ?> (<?= $order->phone; ?>)</h5>
-				<h6 class="card-subtitle text-muted">#<?= $order->id ?> / <?= $order->time ?> / <?= $order->value; ?></h6>
-				<h6 class="card-subtitle mt-1 mb-2"><?= $order->status_name; ?></h6>
-				
-				<p><br />
-				<?php foreach ($order->dishes as $dish){ ?>
-				<?= $dish; ?><br />
-				<?php } ?>
-				</p>
-				
-				<p><em><?= $order->comment; ?></em></p>
-				
-				<div class="btn-group mt-5">
-					<?= $order->buttons ?>
-				</div>
-								
-			</div>
-		</div>
-	
-		
+			 <div class="col-sm-4">
+				<div class="card" style="border-right: 5px solid <?= $order->status_color; ?>">
+					<div class="card-body" style="background:#fff;">
+						
+						<h4 class="card-title"><?= $order->name ?> <span class="text-muted">(#<?= $order->id; ?>)</span></h5>
+						<h6 class="card-subtitle text-muted"><?= $order->phone ?> / <?= $order->time ?> / <?= $order->value; ?></h6>
+						<h6 class="card-subtitle mt-1 mb-2"><?= $order->status_name; ?></h6>
+						
+						<p><br />
+						<?php foreach ($order->dishes as $dish){ ?>
+						<?= $dish; ?><br />
+						<?php } ?>
+						</p>
+						
+						<p><em><?= $order->comment; ?></em></p>
+						
+						<div class="btn-group mt-5">
+							<?= $order->buttons ?>
+						</div>
+										
+					</div>
+				</div>	
+			 </div>
 	<?php } ?>
+		</div>
 	</div>
 		    	    
 </div>
