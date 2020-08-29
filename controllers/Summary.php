@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use DB;
 use Igniter\Flame\Currency;
 use Request;
+use Template;
 
 /**
  * Order Summary
@@ -27,6 +28,7 @@ class Summary extends \Admin\Classes\AdminController
         parent::__construct();
 
         AdminMenu::setContext('sales', 'summary');
+        Template::setTitle(lang('lang:thoughtco.runningorder::default.text_title'));
         
     }
     
