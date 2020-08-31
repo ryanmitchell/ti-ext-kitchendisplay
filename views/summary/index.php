@@ -15,7 +15,7 @@
 		    	
 	        <div class="d-sm-flex flex-sm-wrap w-100 no-gutters">
 		        
-				<div class="col col-sm-2 mr-3">
+				<div class="col col-11">
 					
 					<div class="filter-scope date form-group">
 						
@@ -29,9 +29,9 @@
             		
 		        </div>	       
 		        		        
-				<div class="col col-sm-2 mr-3">
+				<div class="col col-1">
 					
-					<button type="submit" class="btn btn-primary"><?= lang('lang:thoughtco.runningorder::default.btn_view') ?></button>
+					<button type="submit" class="btn btn-primary float-right"><?= lang('lang:thoughtco.runningorder::default.btn_view') ?></button>
 					
 				</div>
         
