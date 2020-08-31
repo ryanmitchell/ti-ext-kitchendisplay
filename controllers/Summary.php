@@ -50,7 +50,7 @@ class Summary extends \Admin\Classes\AdminController
 		    // valid sale and complete
 		    if ($action == 'complete'){
 		    	if ($sale !== NULL){
-				    $status = $sale->updateOrderStatus(array_shift($completedStatuses));
+				    $status = $sale->updateOrderStatus(array_shift($completedStatuses), ['notify_customer' => true]);
 			    }	
 			    return $this->redirect('thoughtco/runningorder/summary');
 		    }
@@ -58,7 +58,7 @@ class Summary extends \Admin\Classes\AdminController
 	    	// valid sale and preparation
 		    if ($action == 'prep'){
 		    	if ($sale !== NULL){
-				    $status = $sale->updateOrderStatus(array_shift($processingStatuses));
+				    $status = $sale->updateOrderStatus(array_shift($processingStatuses), ['notify_customer' => true]);
 			    }	
 			    return $this->redirect('thoughtco/runningorder/summary');
 		    }
@@ -66,7 +66,7 @@ class Summary extends \Admin\Classes\AdminController
 	    	// valid sale and ready
 		    if ($action == 'ready'){
 		    	if ($sale !== NULL){
-				    $status = $sale->updateOrderStatus(array_pop($processingStatuses));
+				    $status = $sale->updateOrderStatus(array_pop($processingStatuses), ['notify_customer' => true]);
 			    }	
 			    return $this->redirect('thoughtco/runningorder/summary');
 		    }
