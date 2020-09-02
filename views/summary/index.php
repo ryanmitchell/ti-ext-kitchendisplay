@@ -47,8 +47,9 @@
         
 	<div class="form-fields">
 		<div class="row">
-	<?php foreach ($this->renderResults() as $order){ ?>
-			 <div class="col-4">
+			
+			<?php foreach ($this->renderResults() as $order){ ?>
+			 <div class="col col-sm-6 col-lg-4 mb-4">
 				<div class="card" style="border-right: 5px solid <?= $order->status_color; ?>">
 					<div class="card-body" style="background:#fff;">
 						
@@ -56,30 +57,29 @@
 						<h6 class="card-subtitle text-muted"><?= $order->phone ?> / <?= $order->time ?> / <?= $order->value; ?></h6>
 						<h6 class="label label-default mt-2" style="background-color:<?= $order->status_color; ?>"><?= $order->status_name; ?></h6>
 						
-						<p>
+						<div>
 							<?php 
 								foreach ($order->dishes as $dish){ 
 									if ($dish != ''){
-							?>
-							<br /><?= $dish; ?>
+							?><?= $dish; ?>
 							<?php 
 									}
 								} 
 							?>
 							<?php if ($order->comment != ''){ ?>
-							<br /><br />
-							<em><?= $order->comment; ?></em>
+							<br/><br/><em><?= $order->comment; ?></em>
 							<?php } ?>
-						</p>
+						</div>
 						
-						<div class="btn-group mt-5">
+						<div class="btn-group mt-3 w-100">
 							<?= $order->buttons ?>
 						</div>
 										
 					</div>
 				</div>	
 			 </div>
-	<?php } ?>
+			 <?php } ?>
+			 
 		</div>
 	</div>
 		    	    

@@ -142,6 +142,7 @@ class Summary extends \Admin\Classes\AdminController
 		    	$query->where('location_id', $selectedLocation->location_id);
 		    }
 		})
+		->orderBy('order_date', 'asc')
 		->orderBy('order_time', 'asc')
 		->limit(30)
 		->get();
@@ -187,13 +188,17 @@ class Summary extends \Admin\Classes\AdminController
 				$runningDishes[] = '<strong>'.$menuItem->quantity.'x '.$menuItem->name.'</strong>';
 
 				if ($menuItemOptions = $menuItemsOptions->get($menuItem->order_menu_id)) { 
+					
+					$runningDishes[] = '<ul class="list-unstyled mb-0 pl-3">';
 					foreach ($menuItemOptions as $menuItemOption) { 
-						$runningDishes[] = $menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
+						$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
                     }
-                }
-                
+					$runningDishes[] = '</li>';
+					$runningDishes[] = '</ul>';
+				} 
+				   
                 if ($menuItem->comment != ''){
-	            	$runningDishes[] = '<em>'.$menuItem->comment.'</em>';   
+	            	$runningDishes[] = '<em>'.$menuItem->comment.'</em><br/>';   
                 }
                 
                 $runningDishes[] = '';
@@ -213,9 +218,9 @@ class Summary extends \Admin\Classes\AdminController
 						'status_name'=>$o->status_name,
 						'status_color'=>$o->status_color,
 						'buttons' => '
-		                	<a class="btn '.($o->status_id != $prepStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$o->order_id).'" style="background-color:'.$prepColor.'";' : 'btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_prep').'</a>
-							<a class="btn '.($o->status_id != $readyStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$o->order_id).'" style="background-color:'.$readyColor.'";' : 'btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_ready').'</a>
-							<a class="btn '.($o->status_id != $completedStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$o->order_id).'" style="background-color:'.$completedColor.'";' : 'btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_complete').'</a>
+		                			<a class="btn label-default'.($o->status_id != $prepStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$o->order_id).'" style="background-color:'.$prepColor.'";' : ' btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_prep').'</a>
+							<a class="btn label-default'.($o->status_id != $readyStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$o->order_id).'" style="background-color:'.$readyColor.'";' : ' btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_ready').'</a>
+							<a class="btn label-default'.($o->status_id != $completedStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$o->order_id).'" style="background-color:'.$completedColor.'";' : ' btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_complete').'</a>
 						',
 					];							
 				}
