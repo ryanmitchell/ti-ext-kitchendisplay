@@ -47,8 +47,9 @@
         
 	<div class="form-fields">
 		<div class="row">
-	<?php foreach ($this->renderResults() as $order){ ?>
-			 <div class="col-4">
+			
+			<?php foreach ($this->renderResults() as $order){ ?>
+			 <div class="col-4 mb-4">
 				<div class="card" style="border-right: 5px solid <?= $order->status_color; ?>">
 					<div class="card-body" style="background:#fff;">
 						
@@ -70,14 +71,15 @@
 							<?php } ?>
 						</div>
 						
-						<div class="btn-group mt-1 w-100">
+						<div class="btn-group mt-3 w-100">
 							<?= $order->buttons ?>
 						</div>
 										
 					</div>
 				</div>	
 			 </div>
-	<?php } ?>
+			 <?php } ?>
+			 
 		</div>
 	</div>
 		    	    

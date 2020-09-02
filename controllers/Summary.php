@@ -188,12 +188,15 @@ class Summary extends \Admin\Classes\AdminController
 				$runningDishes[] = '<strong>'.$menuItem->quantity.'x '.$menuItem->name.'</strong>';
 
 				if ($menuItemOptions = $menuItemsOptions->get($menuItem->order_menu_id)) { 
-				$runningDishes[] = '<ul class="list-unstyled" style="padding-left:1rem;margin-bottom:0">';
+					
+					$runningDishes[] = '<ul class="list-unstyled mb-0 pl-3">';
 					foreach ($menuItemOptions as $menuItemOption) { 
 						$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
                     }
-            $runningDishes[] = '</li>';}
-            $runningDishes[] = '</ul>';    
+					$runningDishes[] = '</li>';
+					$runningDishes[] = '</ul>';
+				} 
+				   
                 if ($menuItem->comment != ''){
 	            	$runningDishes[] = '<em>'.$menuItem->comment.'</em><br/>';   
                 }
