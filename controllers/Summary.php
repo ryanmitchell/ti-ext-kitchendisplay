@@ -142,6 +142,7 @@ class Summary extends \Admin\Classes\AdminController
 		    	$query->where('location_id', $selectedLocation->location_id);
 		    }
 		})
+		->orderBy('order_date', 'asc')
 		->orderBy('order_time', 'asc')
 		->limit(30)
 		->get();
@@ -187,13 +188,14 @@ class Summary extends \Admin\Classes\AdminController
 				$runningDishes[] = '<strong>'.$menuItem->quantity.'x '.$menuItem->name.'</strong>';
 
 				if ($menuItemOptions = $menuItemsOptions->get($menuItem->order_menu_id)) { 
+				$runningDishes[] = '<ul class="list-unstyled" style="padding-left:1rem;margin-bottom:0">';
 					foreach ($menuItemOptions as $menuItemOption) { 
-						$runningDishes[] = $menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
+						$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
                     }
-                }
-                
+            $runningDishes[] = '</li>';}
+            $runningDishes[] = '</ul>';    
                 if ($menuItem->comment != ''){
-	            	$runningDishes[] = '<em>'.$menuItem->comment.'</em>';   
+	            	$runningDishes[] = '<em>'.$menuItem->comment.'</em><br/>';   
                 }
                 
                 $runningDishes[] = '';
