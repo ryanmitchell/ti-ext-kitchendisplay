@@ -56,23 +56,21 @@
 						<h6 class="card-subtitle text-muted"><?= $order->phone ?> / <?= $order->time ?> / <?= $order->value; ?></h6>
 						<h6 class="label label-default mt-2" style="background-color:<?= $order->status_color; ?>"><?= $order->status_name; ?></h6>
 						
-						<p>
+						<div>
 							<?php 
 								foreach ($order->dishes as $dish){ 
 									if ($dish != ''){
-							?>
-							<br /><?= $dish; ?>
+							?><?= $dish; ?>
 							<?php 
 									}
 								} 
 							?>
 							<?php if ($order->comment != ''){ ?>
-							<br /><br />
-							<em><?= $order->comment; ?></em>
+							<br/><br/><em><?= $order->comment; ?></em>
 							<?php } ?>
-						</p>
+						</div>
 						
-						<div class="btn-group mt-5">
+						<div class="btn-group mt-1 w-100">
 							<?= $order->buttons ?>
 						</div>
 										
