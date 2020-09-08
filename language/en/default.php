@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'text_title' => 'Running order',
+    'text_title' => 'Process Orders',
     
     'column_id' => 'ID',
     'column_time' => 'Time',
@@ -12,7 +12,7 @@ return [
     'column_total' => 'Total',
     'column_status' => 'Status',
 
-	'btn_view' => 'View',
+    'btn_view' => 'View',
     'btn_prep' => 'Prep',
     'btn_ready' => 'Ready',
     'btn_complete' => 'Complete',
