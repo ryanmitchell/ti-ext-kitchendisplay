@@ -11,7 +11,7 @@
 					
 	<div class="list-filter" id="filter-list-filter">
 		
-	    <form id="filter-form" class="form-inline" accept-charset="utf-8" method="GET" action="<?= admin_url('thoughtco/runningorder/summary'); ?>" role="form">
+	    <form id="filter-form" class="form-inline" accept-charset="utf-8" method="GET" action="<?= admin_url('thoughtco/processorders/summary'); ?>" role="form">
 		    	
 	        <div class="d-sm-flex flex-sm-wrap w-100 no-gutters">
 		        
@@ -31,7 +31,7 @@
 		        		        
 				<div class="col col-1">
 					
-					<button type="submit" class="btn btn-primary float-right"><?= lang('lang:thoughtco.runningorder::default.btn_view') ?></button>
+					<button type="submit" class="btn btn-primary float-right"><?= lang('lang:thoughtco.processorders::default.btn_view') ?></button>
 					
 				</div>
         
