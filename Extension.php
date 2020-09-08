@@ -1,4 +1,4 @@
-<?php namespace Thoughtco\Runningorder;
+<?php namespace Thoughtco\ProcessOrders;
 
 use DB;
 use Event;
@@ -21,8 +21,8 @@ class Extension extends BaseExtension
     public function registerPermissions()
     {
         return [
-            'Thoughtco.Runningorder.View' => [
-                'description' => 'View running order',
+            'Thoughtco.ProcessOrders.View' => [
+                'description' => 'View orders ready to process',
                 'group' => 'module',
             ],
         ];
@@ -36,9 +36,9 @@ class Extension extends BaseExtension
                     'summary' => [
                         'priority' => 10,
                         'class' => 'pages',
-                        'href' => admin_url('thoughtco/runningorder/summary'),
-                        'title' => lang('lang:thoughtco.runningorder::default.text_title'),
-                        'permission' => 'Thoughtco.Runningorder.View',
+                        'href' => admin_url('thoughtco/processorders/summary'),
+                        'title' => lang('lang:thoughtco.processorders::default.text_title'),
+                        'permission' => 'Thoughtco.ProcessOrders.View',
                     ],
                 ],
             ],
