@@ -1,6 +1,6 @@
 <?php
 
-namespace Thoughtco\Runningorder\Controllers;
+namespace Thoughtco\ProcessOrders\Controllers;
 
 use AdminMenu;
 use Admin\Facades\AdminLocation;
@@ -21,14 +21,14 @@ use Template;
 class Summary extends \Admin\Classes\AdminController
 {
 
-    protected $requiredPermissions = 'Thoughtco.Ordersummary.*';
+    protected $requiredPermissions = 'Thoughtco.ProcessOrders.*';
 
     public function __construct()
     {
         parent::__construct();
 
         AdminMenu::setContext('sales', 'summary');
-        Template::setTitle(lang('lang:thoughtco.runningorder::default.text_title'));
+        Template::setTitle(lang('lang:thoughtco.processorders::default.text_title'));
         
     }
     
@@ -52,7 +52,7 @@ class Summary extends \Admin\Classes\AdminController
 		    	if ($sale !== NULL){
 				    $status = $sale->updateOrderStatus(array_shift($completedStatuses), ['notify_customer' => true]);
 			    }	
-			    return $this->redirect('thoughtco/runningorder/summary');
+			    return $this->redirect('thoughtco/processorders/summary');
 		    }
 		    
 	    	// valid sale and preparation
@@ -60,7 +60,7 @@ class Summary extends \Admin\Classes\AdminController
 		    	if ($sale !== NULL){
 				    $status = $sale->updateOrderStatus(array_shift($processingStatuses), ['notify_customer' => true]);
 			    }	
-			    return $this->redirect('thoughtco/runningorder/summary');
+			    return $this->redirect('thoughtco/processorders/summary');
 		    }
 		    
 	    	// valid sale and ready
@@ -68,7 +68,7 @@ class Summary extends \Admin\Classes\AdminController
 		    	if ($sale !== NULL){
 				    $status = $sale->updateOrderStatus(array_pop($processingStatuses), ['notify_customer' => true]);
 			    }	
-			    return $this->redirect('thoughtco/runningorder/summary');
+			    return $this->redirect('thoughtco/processorders/summary');
 		    }
 	    
 	    }
@@ -218,9 +218,9 @@ class Summary extends \Admin\Classes\AdminController
 						'status_name'=>$o->status_name,
 						'status_color'=>$o->status_color,
 						'buttons' => '
-		                			<a class="btn label-default'.($o->status_id != $prepStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=prep&order='.$o->order_id).'" style="background-color:'.$prepColor.'";' : ' btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_prep').'</a>
-							<a class="btn label-default'.($o->status_id != $readyStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=ready&order='.$o->order_id).'" style="background-color:'.$readyColor.'";' : ' btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_ready').'</a>
-							<a class="btn label-default'.($o->status_id != $completedStatus ? '" href="'.admin_url('thoughtco/runningorder/summary?action=complete&order='.$o->order_id).'" style="background-color:'.$completedColor.'";' : ' btn-light"').'>'.lang('lang:thoughtco.runningorder::default.btn_complete').'</a>
+		                			<a class="btn label-default'.($o->status_id != $prepStatus ? '" href="'.admin_url('thoughtco/processorders/summary?action=prep&order='.$o->order_id).'" style="background-color:'.$prepColor.'";' : ' btn-light"').'>'.lang('lang:thoughtco.processorders::default.btn_prep').'</a>
+							<a class="btn label-default'.($o->status_id != $readyStatus ? '" href="'.admin_url('thoughtco/processorders/summary?action=ready&order='.$o->order_id).'" style="background-color:'.$readyColor.'";' : ' btn-light"').'>'.lang('lang:thoughtco.processorders::default.btn_ready').'</a>
+							<a class="btn label-default'.($o->status_id != $completedStatus ? '" href="'.admin_url('thoughtco/processorders/summary?action=complete&order='.$o->order_id).'" style="background-color:'.$completedColor.'";' : ' btn-light"').'>'.lang('lang:thoughtco.processorders::default.btn_complete').'</a>
 						',
 					];							
 				}
