@@ -1,4 +1,4 @@
-<?php namespace Thoughtco\ProcessOrders;
+<?php namespace Thoughtco\KitchenDisplay;
 
 use DB;
 use Event;
@@ -21,7 +21,7 @@ class Extension extends BaseExtension
     public function registerPermissions()
     {
         return [
-            'Thoughtco.ProcessOrders.View' => [
+            'Thoughtco.KitchenDisplay.View' => [
                 'description' => 'View orders ready to process',
                 'group' => 'module',
             ],
@@ -36,9 +36,9 @@ class Extension extends BaseExtension
                     'summary' => [
                         'priority' => 10,
                         'class' => 'pages',
-                        'href' => admin_url('thoughtco/processorders/summary'),
-                        'title' => lang('lang:thoughtco.processorders::default.text_title'),
-                        'permission' => 'Thoughtco.ProcessOrders.View',
+                        'href' => admin_url('thoughtco/kitchendisplay/summary'),
+                        'title' => lang('lang:thoughtco.kitchendisplay::default.text_title'),
+                        'permission' => 'Thoughtco.KitchenDisplay.View',
                     ],
                 ],
             ],

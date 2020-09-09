@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'text_title' => 'Process Orders',
+    'text_title' => 'Kitchen Display',
     
     'column_id' => 'ID',
     'column_time' => 'Time',

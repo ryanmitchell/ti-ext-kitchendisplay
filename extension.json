@@ -1,13 +1,13 @@
 {
-  "code": "thoughtco.processorders",
-  "name": "Process Orders",
+  "code": "thoughtco.kitchendisplay",
+  "name": "Kitchen Display",
   "description": "Provides a view of open orders, with the ability to mark orders as in preparation, ready (new status) and complete with one click.",
-  "version": "v1.0.1",
+  "version": "v1.0.2",
   "author": "ryanmitchell",
   "icon": {
     "class": "fa fa-recycle",
     "backgroundColor": "#111",
     "color": "#FFF"
   },
-  "homepage": "https://github.com/thoughtco/ti-ext-processorders"
+  "homepage": "https://github.com/thoughtco/ti-ext-kitchendisplay"
 }
