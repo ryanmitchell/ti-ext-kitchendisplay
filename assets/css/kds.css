@@ -1,0 +1,20 @@
+
+@media (min-width: 768px) {
+
+	.navbar-expand .navbar-toggler {
+		display: block;
+	}
+	
+	.sidebar:not(.show) {
+		display: none;
+	}
+	
+	.sidebar:not(.show) + .page-wrapper {
+		left: 0;
+	}
+
+}
+
+.page-wrapper .page-content {
+	padding-top: 0;
+}
