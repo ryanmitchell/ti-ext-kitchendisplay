@@ -50,7 +50,12 @@ class Summary extends \Admin\Classes\AdminController
 		    // valid sale and complete
 		    if ($action == 'complete'){
 		    	if ($sale !== NULL){
-				    $status = $sale->updateOrderStatus(array_shift($completedStatuses), ['notify_customer' => true]);
+			    	$status = Statuses_model::where(['status_id' => array_shift($completedStatuses)])->first();
+			    	if ($status){
+					    $sale->updateOrderStatus($status->status_id, ['notify' => FALSE]);
+				    	if ($status->notify_customer)
+				    		$sale->mailSend('admin::_mail.order_update', 'customer');
+				    }
 			    }	
 			    return $this->redirect('thoughtco/processorders/summary');
 		    }
@@ -58,7 +63,12 @@ class Summary extends \Admin\Classes\AdminController
 	    	// valid sale and preparation
 		    if ($action == 'prep'){
 		    	if ($sale !== NULL){
-				    $status = $sale->updateOrderStatus(array_shift($processingStatuses), ['notify_customer' => true]);
+			    	$status = Statuses_model::where(['status_id' => array_shift($processingStatuses)])->first();
+			    	if ($status){
+					    $sale->updateOrderStatus($status->status_id, ['notify' => FALSE]);
+				    	if ($status->notify_customer)
+				    		$sale->mailSend('admin::_mail.order_update', 'customer');
+				    }
 			    }	
 			    return $this->redirect('thoughtco/processorders/summary');
 		    }
@@ -66,7 +76,12 @@ class Summary extends \Admin\Classes\AdminController
 	    	// valid sale and ready
 		    if ($action == 'ready'){
 		    	if ($sale !== NULL){
-				    $status = $sale->updateOrderStatus(array_pop($processingStatuses), ['notify_customer' => true]);
+			    	$status = Statuses_model::where(['status_id' => array_pop($processingStatuses)])->first();
+			    	if ($status){
+					    $sale->updateOrderStatus($status->status_id, ['notify' => FALSE]);
+				    	if ($status->notify_customer)
+				    		$sale->mailSend('admin::_mail.order_update', 'customer');
+				    }
 			    }	
 			    return $this->redirect('thoughtco/processorders/summary');
 		    }
