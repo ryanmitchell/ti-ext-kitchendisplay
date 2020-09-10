@@ -1,6 +1,6 @@
 ## Kitchen Display
 
-Adds a view of "orders ready to process" to the menu showing a breakdown of any incomplete orders. Orders are listed oldest to newest based on their scheduled pick-up time.
+Adds a view of "orders ready to process" to the admin menu showing a breakdown of any incomplete orders. Orders are listed oldest to newest based on their scheduled pick-up time.
 
 ### Installation
 
