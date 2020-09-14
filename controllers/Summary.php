@@ -209,10 +209,14 @@ class Summary extends \Admin\Classes\AdminController
 					$runningDishes[] = '<ul class="list-unstyled mb-0 pl-3">';
 					foreach ($menuItemOptions as $menuItemOption) { 
 						$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
-                    }
+					}
 					$runningDishes[] = '</li>';
 					$runningDishes[] = '</ul>';
 				} 
+				else {
+			            $runningDishes[] = '<br/>';
+				}
+
 				   
                 if ($menuItem->comment != ''){
 	            	$runningDishes[] = '<em>'.$menuItem->comment.'</em><br/>';   
