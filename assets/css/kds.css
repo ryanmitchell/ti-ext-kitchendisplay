@@ -18,3 +18,7 @@
 .page-wrapper .page-content {
 	padding-top: 0;
 }
+
+.thoughtco_printerbar {
+	display: none !important;
+}

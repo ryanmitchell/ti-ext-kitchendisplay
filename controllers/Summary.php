@@ -34,9 +34,10 @@ class Summary extends \Admin\Classes\AdminController
     
     public function index()
     {
-	    // force full screen
+	    // add CSS and JS
 	    $this->addCSS('extensions/thoughtco/kitchendisplay/assets/css/kds.css', 'thoughtco-kds');
-	    
+	    $this->addJS('extensions/thoughtco/kitchendisplay/assets/js/kds.js', 'thoughtco-kds');
+
 	    // url params and defaults
 	    $action = Request::get('action', '');
 	    $orderId = Request::get('order', -1);
