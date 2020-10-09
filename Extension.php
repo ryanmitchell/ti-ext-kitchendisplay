@@ -4,9 +4,6 @@ use DB;
 use Event;
 use Admin\Widgets\Form;
 use System\Classes\BaseExtension;
-use Thoughtco\Irtouch\Models\Settings;
-use Thoughtco\Irtouch\Classes\LocationRequest;
-use Thoughtco\Irtouch\Resources\TouchJsonClient;
 
 /**
  * Extension Information File
