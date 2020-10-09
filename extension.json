@@ -2,7 +2,7 @@
   "code": "thoughtco.kitchendisplay",
   "name": "Kitchen Display",
   "description": "Provides a view of open orders, with the ability to mark orders as in preparation, ready (new status) and complete with one click.",
-  "version": "v1.0.5",
+  "version": "v1.0.6",
   "author": "ryanmitchell",
   "icon": {
     "class": "fa fa-recycle",
