@@ -14,6 +14,7 @@ use DB;
 use Igniter\Flame\Currency;
 use Request;
 use Template;
+use Thoughtco\KitchenDisplay\Models\Settings as KitchenSettings;
 
 /**
  * Order Summary
@@ -46,14 +47,25 @@ class Summary extends \Admin\Classes\AdminController
 	    if ($action != '' and $orderId > -1){
 		    
 		    $sale = Orders_model::where('order_id', $orderId)->first();
-		    
-		    $processingStatuses = setting('processing_order_status');
-		    $completedStatuses = setting('completed_order_status');
+			
+			// user configs
+			$prepStatus = KitchenSettings::get('prep_status');
+			$readyStatus = KitchenSettings::get('ready_status');
+			$completeStatus = KitchenSettings::get('completed_status');
+			
+			// not user config
+			if (!$prepStatus){
+		    	$processingStatuses = setting('processing_order_status');
+		    	$completedStatuses = setting('completed_order_status');
+				$completeStatus = array_shift($completedStatuses);
+				$prepStatus = array_shift($processingStatuses);
+				$readyStatus = array_pop($processingStatuses);
+			}
 		    	    
 		    // valid sale and complete
 		    if ($action == 'complete'){
 		    	if ($sale !== NULL){
-			    	$status = Statuses_model::where(['status_id' => array_shift($completedStatuses)])->first();
+			    	$status = Statuses_model::where(['status_id' => $completeStatus])->first();
 			    	if ($status){
 					    $sale->updateOrderStatus($status->status_id, ['notify' => FALSE]);
 				    	if ($status->notify_customer)
@@ -66,7 +78,7 @@ class Summary extends \Admin\Classes\AdminController
 	    	// valid sale and preparation
 		    if ($action == 'prep'){
 		    	if ($sale !== NULL){
-			    	$status = Statuses_model::where(['status_id' => array_shift($processingStatuses)])->first();
+			    	$status = Statuses_model::where(['status_id' => $prepStatus])->first();
 			    	if ($status){
 					    $sale->updateOrderStatus($status->status_id, ['notify' => FALSE]);
 				    	if ($status->notify_customer)
@@ -79,7 +91,7 @@ class Summary extends \Admin\Classes\AdminController
 	    	// valid sale and ready
 		    if ($action == 'ready'){
 		    	if ($sale !== NULL){
-			    	$status = Statuses_model::where(['status_id' => array_pop($processingStatuses)])->first();
+			    	$status = Statuses_model::where(['status_id' => $readyStatus])->first();
 			    	if ($status){
 					    $sale->updateOrderStatus($status->status_id, ['notify' => FALSE]);
 				    	if ($status->notify_customer)
@@ -146,9 +158,34 @@ class Summary extends \Admin\Classes\AdminController
 	    }
 	    
 	    if ($selectedLocation === false) return '<br /><h2>Location not found</h2>';
+		
+		// user configs
+		$prepStatus = KitchenSettings::get('prep_status');
+		$readyStatus = KitchenSettings::get('ready_status');
+		$completedStatus = KitchenSettings::get('completed_status');
+		$prepColor = KitchenSettings::get('prep_color');
+		$readyColor = KitchenSettings::get('ready_color');
+		$completedColor = KitchenSettings::get('completed_color');
+		
+		// not user config
+		if (!$prepStatus){
+	    	$processingStatuses = setting('processing_order_status');
+	    	$completedStatuses = setting('completed_order_status');
+			$completedStatus = array_shift($completedStatuses);
+			$prepStatus = array_shift($processingStatuses);
+			$readyStatus = array_pop($processingStatuses);
+			
+			// build colours
+			$statusColors = Statuses_model::all()->pluck('status_color', 'status_id');
+			
+		    $prepColor = $statusColors[$prepStatus];
+		    $readyColor = $statusColors[$readyStatus];
+		    $completedColor = $statusColors[$completedStatus];
+			
+		}
 	    
 	    // what statuses do we ignore?
-	    $ignoreStatuses = setting('completed_order_status');
+	    $ignoreStatuses = [$completedStatus];
 	    $ignoreStatuses[] = setting('canceled_order_status');
 	    
 	    // get orders for the day requested
@@ -164,21 +201,7 @@ class Summary extends \Admin\Classes\AdminController
 		->orderBy('order_time', 'asc')
 		->limit(30)
 		->get();
-		
-		// build colours
-		$statusColors = Statuses_model::all()->pluck('status_color', 'status_id');
-		
-		$processingStatuses = setting('processing_order_status');
-		$completedStatuses = setting('completed_order_status');
-		
-		$prepStatus = array_shift($processingStatuses);
-		$readyStatus = array_pop($processingStatuses);
-		$completedStatus = array_shift($completedStatuses);
-		
-	    $prepColor = $statusColors[$prepStatus];
-	    $readyColor = $statusColors[$readyStatus];
-	    $completedColor = $statusColors[$completedStatus];
-		
+				
 		$outputRunning = [];
 		
 	    foreach ($getOrders as $o){

@@ -17,4 +17,12 @@ return [
     'btn_ready' => 'Ready',
     'btn_complete' => 'Complete',
 
+    'tab_settings' => 'Settings',
+    'label_prep_status' => 'Prepared status',
+    'label_prep_color' => 'Prepared background color',
+    'label_ready_status' => 'Ready status',
+    'label_ready_color' => 'Ready background color',
+    'label_completed_status' => 'Ready status',
+    'label_completed_color' => 'Ready background color',
+
 ];

@@ -41,7 +41,19 @@ class Extension extends BaseExtension
             ],
         ];
     } 
-
+    
+	public function registerSettings()
+	{
+	    return [
+	        'settings' => [
+	            'label' => 'Kitchen Display Settings',
+                'icon' => 'fa fa-recycle',
+	            'description' => 'Manage kitchen display settings.',
+                'model' => 'Thoughtco\KitchenDisplay\Models\Settings',
+	            'permissions' => ['Thoughtco.KitchenDisplay.Manage'],
+	        ],
+	    ];
+	}
 }
 
 ?>
