@@ -45,18 +45,18 @@
         }
     ?>	 
         
-	<div class="form-fields container-fluid">
-		<div class="row">
+	<div class="form-fields pr-0">
+		<div class="row w-100">
 			
 			<?php foreach ($this->renderResults() as $order){ ?>
-			 <div class="col d-flex mb-3">
-				<div class="card flex-grow-1 flex-shrink-1" style="border-right: 5px solid <?= $order->status_color; ?>">
-					<div class="card-body flex-fill" style="background:#fff;">
-
-						<div class="btn-group mb-3 d-flex">
+			 <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-4 mb-3">
+				<div class="card" style="border-right: 5px solid <?= $order->status_color; ?>">
+					<div class="card-body" style="background:#fff;">
+						
+						<div class="btn-group mb-3 w-100">
 							<?= $order->buttons ?>
-						</div>						
-
+						</div>
+												
 						<h4 class="card-title"><?= $order->name ?> <span class="text-muted">(#<?= $order->id; ?>)</span></h5>
 						<h6 class="card-subtitle text-muted"><?= $order->phone ?> / <?= $order->time ?> / <?= $order->value; ?></h6>
 						<h6 class="label label-default mt-2" style="background-color:<?= $order->status_color; ?>"><?= $order->status_name; ?></h6>
@@ -70,14 +70,17 @@
 									}
 								} 
 							?>
-						</div>
 							<?php if ($order->comment != ''){ ?>
-							<br/><div class="col"><em><?= $order->comment; ?></em></div>
+							<p class="w-100 text-wrap"><em><?= $order->comment; ?></em></p>
 							<?php } ?>
-					</div>	
-				</div>
-			</div>
-			<?php } ?>
+						</div>
+										
+					</div>
+				</div>	
+			 </div>
+			 <?php } ?>
+			 
 		</div>
-	</div>	    	    
+	</div>
+		    	    
 </div>
