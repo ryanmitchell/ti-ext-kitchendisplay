@@ -49,7 +49,7 @@
 		<div class="row w-100">
 			
 			<?php foreach ($this->renderResults() as $order){ ?>
-			 <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-4 mb-3">
+			 <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3 kds-card">
 				<div class="card" style="border-right: 5px solid <?= $order->status_color; ?>">
 					<div class="card-body" style="background:#fff;">
 						
