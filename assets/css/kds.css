@@ -22,3 +22,11 @@
 .thoughtco_printerbar {
 	display: none !important;
 }
+
+@media (min-width: 1280px) {
+	
+	.kds-card {
+		max-width: 320px;
+	}
+	
+}
