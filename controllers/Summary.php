@@ -207,6 +207,8 @@ class Summary extends \Admin\Classes\AdminController
 	    foreach ($getOrders as $o){
 		    
 		    $runningDishes = [];
+			
+			$o->order_time = substr($o->order_time, 0, -3);
 		    
 		    $menuItems = $o->getOrderMenus();
    			$menuItemsOptions = $o->getOrderMenuOptions();
