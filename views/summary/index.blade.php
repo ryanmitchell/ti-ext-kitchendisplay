@@ -52,9 +52,10 @@
 												
 						<h4 class="card-title">{{ $order->name }} <span class="text-muted">(#{{ $order->id }})</span></h5>
 						<h6 class="card-subtitle text-muted">{{ $order->phone }} / {{ $order->time }} / {{ $order->value }}</h6>
+						<h6 class="card-subtitle text-muted mt-1">{{ $order->address }}</h6>
+						<div>
 						<h6 class="label label-default mt-2" style="background-color:{!! $order->status_color !!}">{{ $order->status_name }}</h6>
 						
-						<div>
 							@foreach ($order->dishes as $dish)
 								@if ($dish != '')
 								{!! $dish !!}
