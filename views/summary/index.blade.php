@@ -56,6 +56,7 @@
 						<div>
 						<h6 class="label label-default mt-2" style="background-color:{!! $order->status_color !!}">{{ $order->status_name }}</h6>
 						
+						<div>
 							@foreach ($order->dishes as $dish)
 								@if ($dish != '')
 								{!! $dish !!}
