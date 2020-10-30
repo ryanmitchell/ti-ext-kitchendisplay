@@ -260,7 +260,7 @@ class Summary extends \Admin\Classes\AdminController
 						'time' => $o->order_time,
 						'name' => $o->first_name.' '.$o->last_name,
 						'phone' => $o->telephone,
-						'address' => ($showaddress == 1 ? ((isset($o->address->address_1) ? ucwords($o->address->address_1).', ' : '').(isset($o->address->postcode) ? strtoupper($o->address->postcode) : '')) : ''),
+						'address' => ($showaddress == 1 ? ((isset($o->address->address_1) ? ucwords($o->address->address_1).', ' : lang('igniter.local::default.text_collection')).(isset($o->address->postcode) ? strtoupper($o->address->postcode) : '')) : ''),
 						'comment' => $o->comment,
 						'dishes' => $runningDishes,
 						'value' => currency_format($total->value),
