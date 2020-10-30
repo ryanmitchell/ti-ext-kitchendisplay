@@ -24,5 +24,8 @@ return [
     'label_ready_color' => 'Ready background color',
     'label_completed_status' => 'Completed status',
     'label_completed_color' => 'Completed background color',
+	 'label_show_address' => 'Show customers address',
+	 
+	 'help_show_address' => 'Show the delivery address on the tickets',
 
 ];

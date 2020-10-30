@@ -62,7 +62,7 @@
 								@endif
 							@endforeach
 							@if ($order->comment != '')
-							<p class="w-100 text-wrap"><em>{!! $order->comment !}}</em></p>
+							<p class="w-100 text-wrap"><em>{!! $order->comment !!}}</em></p>
 							@endif
 						</div>
 										

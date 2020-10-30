@@ -63,7 +63,14 @@ $config['form']['tabs'] = [
             'label' => 'thoughtco.kitchendisplay::default.label_completed_color',
             'type' => 'colorpicker',
             'span' => 'right',
-        ],      
+        ], 
+		  'show_address' => [
+		      'label' => 'thoughtco.kitchendisplay::default.label_show_address',
+				'tab' => 'thoughtco.kitchendisplay::default.tab_settings',
+				'type' => 'switch',
+				'default' => FALSE,
+				'comment' => 'thoughtco.kitchendisplay::default.help_show_address',
+		  ],		  
     ],
 ];
 
