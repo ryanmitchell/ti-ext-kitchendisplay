@@ -101,29 +101,42 @@ class Summary extends \Admin\Classes\AdminController
 			->limit($viewSettings->display['order_count'])
 			->get();
 							
-		    foreach ($getOrders as $o)
+		    foreach ($getOrders as $orderIdx => $order)
 			{
 			    
 			    $runningDishes = [];
 				
-				$buttonUrl = admin_url('thoughtco/kitchendisplay/summary/view/'.$viewId.'?orderId='.$o->order_id.'&action=status&actionId=');
+				$buttonUrl = admin_url('thoughtco/kitchendisplay/summary/view/'.$viewId.'?orderId='.$order->order_id.'&action=status&actionId=');
 				
-				$o->order_time = substr($o->order_time, 0, -3);
+				$order->order_time = substr($order->order_time, 0, -3);
 			    
-			    $menuItems = $o->getOrderMenus();
-	   			$menuItemsOptions = $o->getOrderMenuOptions();
+			    $menuItems = $order->getOrderMenus();
+	   			$menuItemsOptions = $order->getOrderMenuOptions();
 	
-		        foreach ($menuItems as $menu)
+		        $menuItems = $menuItems->toArray();
+		        foreach ($menuItems as $menuIdx => $menu)
 				{
 			        $menu->category_priority = 100;
 			        $menuModel = Menus_model::with('categories')->where('menu_id', $menu->menu_id)->first();
-			        if (isset($menuModel->categories) && sizeof($menuModel->categories) > 0)
+			        if (isset($menuModel->categories) && count($menuModel->categories) > 0)
 					{
 				        $menu->category_priority = $menuModel->categories[0]->priority;
-			        }
+						
+						// if we have no overlapping categories then remove
+						if (!count(array_intersect($menuModel->categories->pluck('category_id')->toArray(), $viewSettings->categories)))
+							unset($menuItems[$menuIdx]);
+			        } 
+					else if (count($viewSettings->categories))
+					{
+						unset($menuItems[$menuIdx]);
+					}
 		        }
+				
+				// if we have no menu items
+				if (!count($menuItems))
+					continue;
 		        
-		        $menuItems = $menuItems->toArray();
+				// order by category priority
 		        uasort($menuItems, function($a, $b){
 			        return $a->category_priority > $b->category_priority ? 1 : -1;
 		        }); 
@@ -158,24 +171,24 @@ class Summary extends \Admin\Classes\AdminController
 	                
 	      		}
 				
-				foreach ($o->getOrderTotals() as $total)
+				foreach ($order->getOrderTotals() as $total)
 				{
 			        if ($total->code == 'total' || $total->code == 'order_total')
 					{
 						$this->vars['results'][] = (object)[
-							'id' => $o->order_id,
-							'time' => $o->order_time,
-							'name' => $o->first_name.' '.$o->last_name,
-							'phone' => $o->telephone,
-							'comment' => $o->comment,
+							'id' => $order->order_id,
+							'time' => $order->order_time,
+							'name' => $order->first_name.' '.$order->last_name,
+							'phone' => $order->telephone,
+							'comment' => $order->comment,
 							'dishes' => $runningDishes,
 							'value' => currency_format($total->value),
-							'status_name' => $o->status_name,
-							'status_color' => $o->status_color,
+							'status_name' => $order->status_name,
+							'status_color' => $order->status_color,
 							'buttons' => '
-			                	'.($viewSettings->display['button1_enable'] ? '<a class="btn label-default'.($o->status_id != $viewSettings->display['button1_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button1_status'].'" style="background-color:'.$viewSettings->display['button1_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button1_text'].'</a>' : '').'
-								'.($viewSettings->display['button2_enable'] ? '<a class="btn label-default'.($o->status_id != $viewSettings->display['button2_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button2_status'].'" style="background-color:'.$viewSettings->display['button2_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button2_text'].'</a>' : '').'
-								'.($viewSettings->display['button3_enable'] ? '<a class="btn label-default'.($o->status_id != $viewSettings->display['button3_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button3_status'].'" style="background-color:'.$viewSettings->display['button3_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button3_text'].'</a>' : '').'
+			                	'.($viewSettings->display['button1_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button1_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button1_status'].'" style="background-color:'.$viewSettings->display['button1_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button1_text'].'</a>' : '').'
+								'.($viewSettings->display['button2_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button2_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button2_status'].'" style="background-color:'.$viewSettings->display['button2_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button2_text'].'</a>' : '').'
+								'.($viewSettings->display['button3_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button3_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button3_status'].'" style="background-color:'.$viewSettings->display['button3_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button3_text'].'</a>' : '').'
 							',
 						];							
 					}
