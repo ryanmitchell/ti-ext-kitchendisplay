@@ -45,7 +45,7 @@ return [
 				'type' => 'text',
 				'sortable' => FALSE,
 				'formatter' => function($record, $column, $value){
-					return '<a class="btn btn-primary" href="'.admin_url('thoughtco/kitchendisplay/summary/'.$value).'">View</a>';
+					return '<a class="btn btn-primary" href="'.admin_url('thoughtco/kitchendisplay/summary/view/'.$value).'">View</a>';
 				}
 			],	
         ],

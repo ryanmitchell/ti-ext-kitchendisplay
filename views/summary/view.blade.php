@@ -1,9 +1,9 @@
-<div class="row-fluid">	 
+<div class="row-fluid" data-refreshinterval="{{ $refreshInterval }}">	 
         
 	<div class="form-fields pr-0">
 		<div class="row w-100">
 			
-			@foreach ($this->renderResults() as $order)
+			@foreach ($results as $order)
 			 <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3 kds-card">
 				<div class="card" style="border-right: 5px solid {!! $order->status_color !!}">
 					<div class="card-body" style="background:#fff;">
