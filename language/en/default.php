@@ -40,9 +40,9 @@ return [
     'label_button3_status' => 'Button 3 status',
     'label_button3_color' => 'Button 3 background color',
     
-    'label_card_line_1' => 'Card line 1 layout',
-    'label_card_line_2' => 'Card line 2 layout',
-    'label_card_line_3' => 'Card line 3 layout',
+    'label_card_line_1' => 'Line 1 layout',
+    'label_card_line_2' => 'Line 2 layout',
+    'label_card_line_3' => 'Line 3 layout',
     'label_card_status' => 'Show status',
     'label_card_items' => 'Show menu items',
     
