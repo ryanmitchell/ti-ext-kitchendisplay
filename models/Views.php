@@ -34,6 +34,44 @@ class Views extends Model
         'display.refresh_interval' => 'required|int|min:10',
     ];
     
+    public static function getCardLineOptions($line)
+    {
+        
+        switch ($line)
+        {
+            case 1:
+                
+                return [
+                    0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
+                    1 => lang('lang:thoughtco.kitchendisplay::default.option_name_id'),
+                    2 => lang('lang:thoughtco.kitchendisplay::default.option_id_name'),
+                ];
+            
+            break;   
+            
+            case 2:
+                
+                return [
+                    0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
+                    1 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total'),
+                    2 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total'),
+                ];
+            
+            break;             
+             
+            case 3:
+                
+                return [
+                    0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
+                    1 => lang('lang:thoughtco.kitchendisplay::default.option_address'),
+                ];
+            
+            break;             
+        }
+        
+        return [];
+    }
+    
     public static function getCategoriesOptions()
     {
 	    return Categories_model::all()->pluck('name', 'category_id');

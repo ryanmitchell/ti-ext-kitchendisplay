@@ -76,7 +76,7 @@ class Summary extends \Admin\Classes\AdminController
 		    
 		    }
 	
-			$this->vars['refreshInterval'] = $viewSettings->display['refresh_interval'];
+			$this->vars['viewSettings'] = $viewSettings;
 			$this->vars['results'] = [];
 						
 			// what statuses do we query
@@ -175,10 +175,20 @@ class Summary extends \Admin\Classes\AdminController
 				{
 			        if ($total->code == 'total' || $total->code == 'order_total')
 					{
+						
+        				$outputAddress = lang('admin::lang.orders.text_collection_order_type');
+						if ($order->address)
+						{
+	        				$address = $order->address->toArray();
+	        				$address['format'] = '{address_1}, {address_2}, {city}, {postcode}';
+							$outputAddress = str_replace(', , ', ', ', format_address($address, TRUE));
+						}
+						
 						$this->vars['results'][] = (object)[
 							'id' => $order->order_id,
 							'time' => $order->order_time,
 							'name' => $order->first_name.' '.$order->last_name,
+							'address' => $outputAddress,
 							'phone' => $order->telephone,
 							'comment' => $order->comment,
 							'dishes' => $runningDishes,

@@ -71,33 +71,33 @@ return [
         'tabs' => [
 	        'fields' => [
 	            'name' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_settings',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 	                'label' => 'lang:thoughtco.kitchendisplay::default.label_name',
 	                'type' => 'text',
 					'span' => 'left',
 	            ],
 				'is_enabled' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_settings',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 					'label' => 'lang:thoughtco.kitchendisplay::default.label_status',
 					'type' => 'switch',
 					'span' => 'right',
 					'default' => TRUE,
 				],
 	            'locations' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_settings',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 	                'label' => 'lang:thoughtco.kitchendisplay::default.label_locations',
 	                'type' => 'selectlist',
 					'span' => 'left',
 	            ],
 	            'order_status' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_settings',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 		            'label' => 'thoughtco.kitchendisplay::default.label_order_status',
 		            'type' => 'select',
 		            'options' => ['Admin\Models\Statuses_model', 'getDropdownOptionsForOrder'],
 		            'span' => 'right',
 	            ],
 		        'order_types' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_settings',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_ordertypes',
 		            'type' => 'radiotoggle',
 		            'span' => 'left',
@@ -108,34 +108,34 @@ return [
 		            ],
 		        ],	
 		        'categories' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_settings',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_categories',
 		            'type' => 'selectlist',
 					'span' => 'right',
 		        ],
 				
 	            'display[order_count]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 	                'label' => 'lang:thoughtco.kitchendisplay::default.label_ordercount',
 	                'type' => 'text',
 					'span' => 'left',
 					'default' => 15,
 	            ],		
 	            'display[refresh_interval]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 	                'label' => 'lang:thoughtco.kitchendisplay::default.label_refreshinterval',
 	                'type' => 'text',
 					'span' => 'right',
 					'default' => 30,
 	            ],
 	            'display[button1_enable]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button1_status',
 		            'type' => 'switch',
 					'default' => TRUE,
 	            ],
 	            'display[button1_text]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button1_text',
 		            'type' => 'text',
 					'default' => 'Prep',
@@ -148,7 +148,7 @@ return [
 		            ],
 	            ],
 	            'display[button1_status]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button1_status',
 		            'type' => 'select',
 		            'options' => ['Admin\Models\Statuses_model', 'getDropdownOptionsForOrder'],
@@ -161,7 +161,7 @@ return [
 		            ],
 	            ],
 	            'display[button1_color]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_button1_color',
 		            'type' => 'colorpicker',
 		            'span' => 'left',
@@ -174,13 +174,13 @@ return [
 		            ],
 	            ],
 	            'display[button2_enable]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button2_status',
 		            'type' => 'switch',
 					'default' => TRUE,
 	            ],
 	            'display[button2_text]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button2_text',
 		            'type' => 'text',
 					'default' => 'Ready',
@@ -193,7 +193,7 @@ return [
 		            ],
 	            ],
 	            'display[button2_status]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button2_status',
 		            'type' => 'select',
 		            'options' => ['Admin\Models\Statuses_model', 'getDropdownOptionsForOrder'],
@@ -206,7 +206,7 @@ return [
 		            ],
 	            ],
 	            'display[button2_color]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_button2_color',
 		            'type' => 'colorpicker',
 		            'span' => 'left',
@@ -219,13 +219,13 @@ return [
 		            ],
 	            ],
 	            'display[button3_enable]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button3_status',
 		            'type' => 'switch',
 					'default' => TRUE,
 	            ],
 	            'display[button3_text]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button3_text',
 		            'type' => 'text',
 					'default' => 'Completed',
@@ -238,7 +238,7 @@ return [
 		            ],
 	            ],
 	            'display[button3_status]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button3_status',
 		            'type' => 'select',
 		            'options' => ['Admin\Models\Statuses_model', 'getDropdownOptionsForOrder'],
@@ -251,7 +251,7 @@ return [
 		            ],
 	            ],
 	            'display[button3_color]' => [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_display',
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_button3_color',
 		            'type' => 'colorpicker',
 					'default' => '#f1c40f',
@@ -262,7 +262,39 @@ return [
 		                'field' => 'display[button3_enable]',
 		                'condition' => 'checked',
 		            ],
-	            ],				
+	            ],	
+				
+		        'display[card_line_1]' => [
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
+		            'label' => 'lang:thoughtco.kitchendisplay::default.label_card_line_1',
+		            'type' => 'select',
+            		'options' => \Thoughtco\KitchenDisplay\Models\Views::getCardLineOptions(1),
+		        ],	
+		        'display[card_line_2]' => [
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
+		            'label' => 'lang:thoughtco.kitchendisplay::default.label_card_line_2',
+		            'type' => 'select',
+            		'options' => \Thoughtco\KitchenDisplay\Models\Views::getCardLineOptions(2),
+		        ],	
+		        'display[card_line_3]' => [
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
+		            'label' => 'lang:thoughtco.kitchendisplay::default.label_card_line_3',
+		            'type' => 'select',
+					'options' => \Thoughtco\KitchenDisplay\Models\Views::getCardLineOptions(3),
+		        ],
+	            'display[card_status]' => [
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
+		            'label' => 'thoughtco.kitchendisplay::default.label_card_status',
+		            'type' => 'switch',
+					'default' => TRUE,
+	            ],					
+	            'display[card_items]' => [
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
+		            'label' => 'thoughtco.kitchendisplay::default.label_card_items',
+		            'type' => 'switch',
+					'default' => TRUE,
+	            ],	
+																						
 			]
         ]
     ],
