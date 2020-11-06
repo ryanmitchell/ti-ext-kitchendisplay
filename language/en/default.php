@@ -24,6 +24,7 @@ return [
     'label_categories' => 'Show menu items from categories',
     'label_ordertypes' => 'Type of orders',
     'label_order_status' => 'Orders with initial status',
+    'label_order_assigned' => 'Orders assigned to',
     'label_ordercount' => 'Number of orders to show',
     'label_refreshinterval' => 'Refresh interval in seconds',
     
@@ -45,6 +46,7 @@ return [
     'label_card_line_3' => 'Line 3 layout',
     'label_card_status' => 'Show status',
     'label_card_items' => 'Show menu items',
+    'label_card_assign' => 'Show assign',
     
     'option_blank' => 'Blank',
     'option_name_id' => 'Name / Order ID',
@@ -59,7 +61,9 @@ return [
     
     'text_empty' => 'No views to display',
     
-    'value_all' => 'All orders',
+    'value_anyone' => 'Anyone',
+    'value_all_status' => 'All statuses',
+    'value_all_orders' => 'All orders',
     'value_delivery' => 'Delivery only',
     'value_collection' => 'Collection only',
 

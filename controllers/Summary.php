@@ -98,8 +98,13 @@ class Summary extends \Admin\Classes\AdminController
 		    
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
-			    $query->whereIn('status_id', $statuses);
+			   
+			    if ($viewSettings->order_status != '')
+					$query->whereIn('status_id', $statuses);
 					
+			    if ($viewSettings->order_assigned != '')
+					$query->where('assignee_id', $viewSettings->order_assigned);
+										
 				if ($viewSettings->locations != '')
 					$query->whereIn('location_id', $viewSettings->locations);
 				
