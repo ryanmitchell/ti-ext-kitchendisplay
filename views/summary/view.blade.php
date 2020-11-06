@@ -13,7 +13,20 @@
 							{!! $order->buttons !!}
 						</div>
 						@endif 
-								
+						
+						@if($order->assign != '')
+						<form class="mb-3" method="get" action="{{ $order->assign_url }}">
+							<input type="hidden" name="orderId" value="{{ $order->id }}" />
+							<input type="hidden" name="action" value="assign" />
+							<select name="actionId" class="form-control" onchange="this.parentNode.submit();">
+								<option value="">--</option>
+								@foreach($order->assign as $index=>$staff)
+								<option value="{{ $index }}"@if($index == $order->assigned_to) selected @endif>{{ $staff }}</option>
+								@endforeach
+							</select>
+						</form>
+						@endif 
+						
 						@switch($viewSettings->display['card_line_1'])
 							@case(1)<h4 class="card-title">{{ $order->name }} <span class="text-muted">(#{{ $order->id }})</span></h4>@break
 							@case(2)<h4 class="card-title">#{{ $order->id }} <span class="text-muted">({{ $order->name }})</span></h4>@break

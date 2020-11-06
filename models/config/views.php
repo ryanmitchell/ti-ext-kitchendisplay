@@ -294,7 +294,12 @@ return [
 		            'type' => 'switch',
 					'default' => TRUE,
 	            ],	
-																						
+	            'display[assign]' => [
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
+		            'label' => 'thoughtco.kitchendisplay::default.label_card_assign',
+		            'type' => 'switch',
+					'default' => FALSE,
+	            ],																						
 			]
         ]
     ],

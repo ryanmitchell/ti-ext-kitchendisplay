@@ -7,6 +7,7 @@ use Admin\Facades\AdminLocation;
 use Admin\Models\Locations_model;
 use Admin\Models\Menus_model;
 use Admin\Models\Orders_model;
+use Admin\Models\Staffs_model;
 use Admin\Models\Statuses_model;
 use ApplicationException;
 use Carbon\Carbon;
@@ -57,13 +58,13 @@ class Summary extends \Admin\Classes\AdminController
 			{
 			    
 			    $sale = Orders_model::where('order_id', $orderId)->first();
-			    	    
-			    // update status
-			    if ($action == 'status')
+				
+			    if ($sale !== NULL)
 				{
-					
-			    	if ($sale !== NULL)
-					{
+			    	    
+				    // update status
+				    if ($action == 'status')
+					{	
 				    	$status = Statuses_model::where(['status_id' => $actionId])->first();
 				    	if ($status)
 						{
@@ -71,10 +72,17 @@ class Summary extends \Admin\Classes\AdminController
 					    	if ($status->notify_customer)
 					    		$sale->mailSend('admin::_mail.order_update', 'customer');
 					    }
-				    }	
+				    }
 					
-				    return $this->redirect('thoughtco/kitchendisplay/summary/view/'.$viewId);
-			    }
+				    // update assignment
+				    if ($action == 'assign')
+					{
+						$sale->updateAssignTo(null, Staffs_model::find($actionId));
+					}	
+				
+				}		
+				
+				return $this->redirect('thoughtco/kitchendisplay/summary/view/'.$viewId);
 		    
 		    }
 	
@@ -108,7 +116,8 @@ class Summary extends \Admin\Classes\AdminController
 			    
 			    $runningDishes = [];
 				
-				$buttonUrl = admin_url('thoughtco/kitchendisplay/summary/view/'.$viewId.'?orderId='.$order->order_id.'&action=status&actionId=');
+				$assignUrl = admin_url('thoughtco/kitchendisplay/summary/view/'.$viewId.'?orderId='.$order->order_id);
+				$buttonUrl = $assignUrl.'&action=status&actionId=';
 				
 				$order->order_time = substr($order->order_time, 0, -3);
 			    
@@ -185,7 +194,7 @@ class Summary extends \Admin\Classes\AdminController
 	        				$address['format'] = '{address_1}, {address_2}, {city}, {postcode}';
 							$outputAddress = str_replace(', , ', ', ', format_address($address, TRUE));
 						}
-						
+												
 						$this->vars['results'][] = (object)[
 							'id' => $order->order_id,
 							'time' => $order->order_time,
@@ -202,6 +211,9 @@ class Summary extends \Admin\Classes\AdminController
 								'.($viewSettings->display['button2_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button2_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button2_status'].'" style="background-color:'.$viewSettings->display['button2_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button2_text'].'</a>' : '').'
 								'.($viewSettings->display['button3_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button3_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button3_status'].'" style="background-color:'.$viewSettings->display['button3_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button3_text'].'</a>' : '').'
 							',
+							'assign' => $viewSettings->display['assign'] ? Staffs_model::getDropdownOptions() : '',
+							'assign_url' => $assignUrl,
+							'assigned_to' => $order->assignee ? $order->assignee->staff_id : -1,
 						];							
 					}
 				}
