@@ -18,6 +18,7 @@ class KitchendisplayTables extends Migration
                 $table->string('name');
                 $table->string('locations');
                 $table->string('categories');
+                $table->string('order_assigned');
                 $table->string('order_status');
                 $table->integer('order_types');
                 $table->text('display');
