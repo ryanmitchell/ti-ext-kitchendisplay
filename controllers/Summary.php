@@ -139,7 +139,7 @@ class Summary extends \Admin\Classes\AdminController
 				        $menu->category_priority = $menuModel->categories[0]->priority;
 						
 						// if we have no overlapping categories then remove
-						if (!count(array_intersect($menuModel->categories->pluck('category_id')->toArray(), $viewSettings->categories)))
+						if (!count(array_intersect($menuModel->categories->pluck('category_id')->toArray(), $viewSettings->categories ?: [])))
 							unset($menuItems[$menuIdx]);
 			        } 
 					else if (count($viewSettings->categories))
