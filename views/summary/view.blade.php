@@ -38,7 +38,7 @@
 						@endswitch
 						
 						@switch($viewSettings->display['card_line_3'])
-							@case(1)<h6 class="card-subtitle text-muted mt-1">{{ $order->address }}</h6>@break
+							@case(1)<h6 class="card-subtitle text-muted mt-1">{{ ($order->address) }}<a class="p-2 fab fa-google" target="_blank" title="Google Maps" href="{{ 'https://www.google.com/maps/dir/?api=1&destination='.urlencode($order->address) }}"></a><a class="p-2 fab fa-bing" target="_blank" title="Bing Maps" href="{{ 'https://maps.bing.com/?api=1&destination='.urlencode($order->address) }}"><img src="https://www.bing.com/sa/simg/favicon-2x.ico" width="15" height="15" ></a></h6>@break
 						@endswitch		
 										
 						@if($viewSettings->display['card_status'])
