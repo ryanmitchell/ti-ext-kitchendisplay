@@ -47,7 +47,7 @@ class Views extends \Admin\Classes\AdminController
         'configFile' => 'views',
     ];
 
-    protected $requiredPermissions = 'Thoughtco.Kitchendisplay.*';
+    protected $requiredPermissions = 'Thoughtco.KitchenDisplay.*';
 
     public function __construct()
     {
