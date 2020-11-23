@@ -2,7 +2,7 @@
 
 Adds the ability to create multiple order processing views designed to facilitate expediting orders through the restaurant.
 
-The views will show a breakdown of any incomplete orders or orders that match the criteria set by the view specfications. View specifications are user selectable and include options for Location(s), initial status to appear on the view, category (facilitate "station" display panels), assignee (facilitate delivery drivers and Pickup station), number of orders to display and refresh interval.
+The views will show a breakdown of any incomplete orders or orders that match the criteria set by the view specfications. View specifications are user selectable and include options for Location(s), initial status to appear on the view, Order type, category (facilitate "station" display panels), assignee (facilitate delivery drivers and Pickup station), number of orders to display and refresh interval.
 
 The orders are listed oldest to newest based on their scheduled pick-up time.
 
