@@ -33,27 +33,14 @@ class Extension extends BaseExtension
                     'summary' => [
                         'priority' => 10,
                         'class' => 'pages',
-                        'href' => admin_url('thoughtco/kitchendisplay/summary'),
+                        'href' => admin_url('thoughtco/kitchendisplay/views'),
                         'title' => lang('lang:thoughtco.kitchendisplay::default.text_title'),
                         'permission' => 'Thoughtco.KitchenDisplay.View',
                     ],
                 ],
             ],
         ];
-    } 
-    
-	public function registerSettings()
-	{
-	    return [
-	        'settings' => [
-	            'label' => 'Kitchen Display Settings',
-                'icon' => 'fa fa-recycle',
-	            'description' => 'Manage kitchen display settings.',
-                'model' => 'Thoughtco\KitchenDisplay\Models\Settings',
-	            'permissions' => ['Thoughtco.KitchenDisplay.Manage'],
-	        ],
-	    ];
-	}
+    }
 }
 
 ?>

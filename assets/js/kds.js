@@ -15,4 +15,4 @@ window.setInterval(function () {
         });
     });
 
-}, 30000);
+}, 1000 * parseInt(document.querySelector('[data-refreshinterval]').getAttribute('data-refreshinterval')));
