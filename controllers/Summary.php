@@ -67,11 +67,7 @@ class Summary extends \Admin\Classes\AdminController
 					{	
 				    	$status = Statuses_model::where(['status_id' => $actionId])->first();
 				    	if ($status)
-						{
-						    $sale->updateOrderStatus($status->status_id, ['notify' => FALSE]);
-					    	if ($status->notify_customer)
-					    		$sale->mailSend('admin::_mail.order_update', 'customer');
-					    }
+						    $sale->updateOrderStatus($status->status_id);
 				    }
 					
 				    // update assignment
