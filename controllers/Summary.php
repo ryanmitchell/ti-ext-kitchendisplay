@@ -202,6 +202,7 @@ class Summary extends \Admin\Classes\AdminController
 												
 						$this->vars['results'][] = (object)[
 							'id' => $order->order_id,
+							'type' => $order->order_type,
 							'time' => $order->order_time,
 							'name' => $order->first_name.' '.$order->last_name,
 							'address' => $outputAddress,
