@@ -6,7 +6,7 @@ The views will show a breakdown of any incomplete orders or orders that match th
 
 The orders are listed based on their scheduled pick-up time.
 
-Buttons appear on the view that enables touch capability to move an order to a new status if your selection. If the "Notify Customer" option is selected on the status definition then this extension will send an email to the customer notifying them of their order's new status. The status of button 3 determines whether the order remains on the view or if it is removed from the view when the current view is processing the order. 
+Buttons appear on the view that enables touch capability to move an order to a new status of your selection. If the "Notify Customer" option is selected on the status definition then this extension will send an email to the customer notifying them of their order's new status. The status of button 3 determines whether the order remains on the view or if it is removed from the view when the current view is processing the order. 
 
 Multiple views can be set up to allow different types of order processing, for example you could set up a view for each station limited by the category of order items, or you could set up a view for delivery orders for your delivery drivers.
 
