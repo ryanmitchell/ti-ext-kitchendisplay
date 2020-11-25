@@ -95,7 +95,7 @@ class Summary extends \Admin\Classes\AdminController
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
 			   
-			    if ($viewSettings->order_status != '')
+			    if (count($statuses))
 					$query->whereIn('status_id', $statuses);
 					
 			    if ($viewSettings->order_assigned != '')
