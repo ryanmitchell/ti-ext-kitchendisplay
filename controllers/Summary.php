@@ -86,15 +86,19 @@ class Summary extends \Admin\Classes\AdminController
 			$this->vars['results'] = [];
 						
 			// what statuses do we query
-			$statuses = [$viewSettings->order_status];
-			if ($viewSettings->display['button1_enable'])
-				$statuses[] = $viewSettings->display['button1_status'];
-			if ($viewSettings->display['button2_enable'])
-				$statuses[] = $viewSettings->display['button2_status'];
+			$statuses = [];
+			if ($viewSettings->order_status != '')
+			{
+				$statuses[] = $viewSettings->order_status;
+				if ($viewSettings->display['button1_enable'])
+					$statuses[] = $viewSettings->display['button1_status'];
+				if ($viewSettings->display['button2_enable'])
+					$statuses[] = $viewSettings->display['button2_status'];
+			}
 		    
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
-			   
+							   
 			    if (count($statuses))
 					$query->whereIn('status_id', $statuses);
 					
