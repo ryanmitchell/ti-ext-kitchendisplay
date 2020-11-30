@@ -95,11 +95,11 @@ class Summary extends \Admin\Classes\AdminController
 				if ($viewSettings->display['button2_enable'])
 					$statuses[] = $viewSettings->display['button2_status'];
 			}
-		    
+					    
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
 							   
-			    if (count($statuses))
+			    if (count($statuses) > 0)
 					$query->whereIn('status_id', $statuses);
 					
 			    if ($viewSettings->order_assigned != '')
@@ -141,7 +141,7 @@ class Summary extends \Admin\Classes\AdminController
 						// if we have no overlapping categories then remove
 						if (count($viewSettings->categories) > 0)
 						{
-							if (count(array_intersect($menuModel->categories->pluck('category_id')->toArray(), $viewSettings->categories ?: [])) < 1)
+							if (count(array_intersect($menuModel->categories->pluck('category_id')->toArray(), $viewSettings->categories)) < 1)
 								unset($menuItems[$menuIdx]);
 						}
 			        } 
