@@ -51,8 +51,8 @@ return [
     'option_blank' => 'Blank',
     'option_name_id' => 'Name / Order ID',
     'option_id_name' => 'Order ID / Name',
-    'option_time_phone_total' => 'Time / Phone / Total',
-    'option_phone_time_total' => 'Phone / Time / Total',
+    'option_time_phone_total' => 'Time / Phone / Total / Payment code',
+    'option_phone_time_total' => 'Phone / Time / Total / Payment code',
     'option_address' => 'Address',
     
     'tab_general' => 'General',

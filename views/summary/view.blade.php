@@ -33,8 +33,8 @@
 						@endswitch
 						
 						@switch($viewSettings->display['card_line_2'])
-							@case(1)<h6 class="card-subtitle text-muted">{{ $order->phone }} / {{ $order->time }} / {{ $order->value }}</h6>@break
-							@case(2)<h6 class="card-subtitle text-muted">{{ $order->time }} / {{ $order->phone }} / {{ $order->value }}</h6>@break
+							@case(1)<h6 class="card-subtitle text-muted">{{ $order->phone }} / {{ $order->time }} / {{ $order->value }} / {{ $order->payment_code }}</h6>@break
+							@case(2)<h6 class="card-subtitle text-muted">{{ $order->time }} / {{ $order->phone }} / {{ $order->value }} / {{ $order->payment_code }}</h6>@break
 						@endswitch
 						
 						@switch($viewSettings->display['card_line_3'])
