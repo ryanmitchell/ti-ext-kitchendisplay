@@ -44,6 +44,7 @@ return [
     'label_card_line_1' => 'Line 1 layout',
     'label_card_line_2' => 'Line 2 layout',
     'label_card_line_3' => 'Line 3 layout',
+    'label_card_line_4' => 'Line 3 layout',
     'label_card_status' => 'Show status',
     'label_card_items' => 'Show menu items',
     'label_card_assign' => 'Show assign',
