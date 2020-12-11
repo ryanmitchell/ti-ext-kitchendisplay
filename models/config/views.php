@@ -8,7 +8,7 @@ return [
 		            'label' => 'lang:admin::lang.button_new',
 		            'class' => 'btn btn-primary',
 		            'href' => 'thoughtco/kitchendisplay/views/create',
-		        ],	            
+		        ],
                 'delete' => ['label' => 'lang:admin::lang.button_delete', 'class' => 'btn btn-danger', 'data-request-form' => '#list-form', 'data-request' => 'onDelete', 'data-request-data' => "_method:'DELETE'", 'data-request-data' => "_method:'DELETE'", 'data-request-confirm' => 'lang:admin::lang.alert_warning_confirm'],
             ],
         ],
@@ -19,7 +19,7 @@ return [
 					'type' => 'switch',
 					'conditions' => 'is_enabled = :filtered',
 				],
-			],	
+			],
 		],
         'columns' => [
             'edit' => [
@@ -34,7 +34,7 @@ return [
                 'label' => 'lang:thoughtco.kitchendisplay::default.column_name',
                 'type' => 'text',
                 'sortable' => TRUE,
-            ],						  
+            ],
 			'is_enabled' => [
 				'label' => 'lang:thoughtco.kitchendisplay::default.column_status',
 				'type' => 'switch',
@@ -47,7 +47,7 @@ return [
 				'formatter' => function($record, $column, $value){
 					return '<a class="btn btn-primary" href="'.admin_url('thoughtco/kitchendisplay/summary/view/'.$value).'">View</a>';
 				}
-			],	
+			],
         ],
     ],
 
@@ -99,7 +99,7 @@ return [
 		            	'lang:thoughtco.kitchendisplay::default.value_delivery',
 		            	'lang:thoughtco.kitchendisplay::default.value_collection',
 		            ],
-		        ],	
+		        ],
 	            'order_status' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 		            'label' => 'thoughtco.kitchendisplay::default.label_order_status',
@@ -115,14 +115,14 @@ return [
 					'placeholder' => 'thoughtco.kitchendisplay::default.value_anyone',
 		            'options' => ['Admin\Models\Staffs_model', 'getDropdownOptions'],
 		            'span' => 'right',
-	            ],								
+	            ],
 		        'categories' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_categories',
 		            'type' => 'selectlist',
 					'span' => 'left',
 		        ],
-				
+
 	            'display[order_count]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 	                'label' => 'lang:thoughtco.kitchendisplay::default.label_ordercount',
@@ -130,7 +130,7 @@ return [
 					'span' => 'right',
 					'default' => 15,
 					'cssClass' => 'flex-width',
-	            ],		
+	            ],
 	            'display[refresh_interval]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 	                'label' => 'lang:thoughtco.kitchendisplay::default.label_refreshinterval',
@@ -176,7 +176,7 @@ return [
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_button1_color',
 		            'type' => 'colorpicker',
 		            'span' => 'left',
-					'cssClass' => 'flex-width',					
+					'cssClass' => 'flex-width',
 					'default' => '#1abc9c',
 		            'trigger' => [
 		                'action' => 'show',
@@ -241,7 +241,7 @@ return [
 		            'type' => 'text',
 					'default' => 'Completed',
 		            'span' => 'left',
-					'cssClass' => 'flex-width',					
+					'cssClass' => 'flex-width',
 		            'trigger' => [
 		                'action' => 'show',
 		                'field' => 'display[button3_enable]',
@@ -254,7 +254,7 @@ return [
 		            'type' => 'select',
 		            'options' => ['Admin\Models\Statuses_model', 'getDropdownOptionsForOrder'],
 		            'span' => 'left',
-					'cssClass' => 'flex-width',					
+					'cssClass' => 'flex-width',
 		            'trigger' => [
 		                'action' => 'show',
 		                'field' => 'display[button3_enable]',
@@ -273,44 +273,50 @@ return [
 		                'field' => 'display[button3_enable]',
 		                'condition' => 'checked',
 		            ],
-	            ],	
-				
+	            ],
+
 		        'display[card_line_1]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_card_line_1',
 		            'type' => 'select',
             		'options' => \Thoughtco\KitchenDisplay\Models\Views::getCardLineOptions(1),
-		        ],	
+		        ],
 		        'display[card_line_2]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_card_line_2',
 		            'type' => 'select',
             		'options' => \Thoughtco\KitchenDisplay\Models\Views::getCardLineOptions(2),
-		        ],	
+		        ],
 		        'display[card_line_3]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_card_line_3',
 		            'type' => 'select',
 					'options' => \Thoughtco\KitchenDisplay\Models\Views::getCardLineOptions(3),
 		        ],
+            'display[card_line_4]' => [
+                  'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
+                'label' => 'lang:thoughtco.kitchendisplay::default.label_card_line_4',
+                'type' => 'select',
+          'options' => \Thoughtco\KitchenDisplay\Models\Views::getCardLineOptions(4),
+            ],
 	            'display[card_status]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
 		            'label' => 'thoughtco.kitchendisplay::default.label_card_status',
 		            'type' => 'switch',
 					'default' => TRUE,
-	            ],					
+	            ],
 	            'display[card_items]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
 		            'label' => 'thoughtco.kitchendisplay::default.label_card_items',
 		            'type' => 'switch',
 					'default' => TRUE,
-	            ],	
+	            ],
 	            'display[assign]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
 		            'label' => 'thoughtco.kitchendisplay::default.label_card_assign',
 		            'type' => 'switch',
 					'default' => FALSE,
-	            ],																						
+	            ],
 			]
         ]
     ],
