@@ -29,13 +29,16 @@ class Views extends Model
     ];
     
     public $rules = [
-        'locations' => 'sometimes|required',
+        'locations' => 'required',
         'display.order_count' => 'required|int|min:0',
         'display.refresh_interval' => 'required|int|min:10',
     ];
     
     public function beforeSave()
     {
+        if (!Request::input('View.locations'))
+            $this->locations = [];
+            
         if (!Request::input('View.categories'))
             $this->categories = [];
     }
