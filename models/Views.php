@@ -55,6 +55,8 @@ class Views extends Model
                     0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
                     1 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total'),
                     2 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total'),
+                    3 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_code'),
+                    4 => lang('lang:thoughtco.kitchendisplay::default.option_time_code_total'),
                 ];
 
             break;
@@ -64,15 +66,6 @@ class Views extends Model
                 return [
                     0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
                     1 => lang('lang:thoughtco.kitchendisplay::default.option_address'),
-                ];
-
-            break;
-
-            case 4:
-
-                return [
-                    0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
-                    1 => lang('lang:thoughtco.kitchendisplay::default.option_payment_code'),
                 ];
 
             break;

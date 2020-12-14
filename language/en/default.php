@@ -44,7 +44,6 @@ return [
     'label_card_line_1' => 'Line 1 layout',
     'label_card_line_2' => 'Line 2 layout',
     'label_card_line_3' => 'Line 3 layout',
-    'label_card_line_4' => 'Line 4 layout',
     'label_card_status' => 'Show status',
     'label_card_items' => 'Show menu items',
     'label_card_assign' => 'Show assign',
@@ -54,8 +53,9 @@ return [
     'option_id_name' => 'Order ID / Name',
     'option_time_phone_total' => 'Time / Phone / Total',
     'option_phone_time_total' => 'Phone / Time / Total',
-    'option_payment_code' => 'Payment code',
     'option_address' => 'Address',
+    'option_time_phone_code' => 'Time / Phone / Payment code',
+    'option_time_code_total' => 'Time / Payment code / Total',
 
     'tab_general' => 'General',
     'tab_buttons' => 'Buttons',

@@ -35,15 +35,13 @@
 						@switch($viewSettings->display['card_line_2'])
 							@case(1)<h6 class="card-subtitle text-muted">{{ $order->phone }} / {{ $order->time }} / {{ $order->value }}</h6>@break
 							@case(2)<h6 class="card-subtitle text-muted">{{ $order->time }} / {{ $order->phone }} / {{ $order->value }}</h6>@break
+							@case(3)<h6 class="card-subtitle text-muted">{{ $order->time }} / {{ $order->phone }} / {{ $order->payment_code }}</h6>@break
+							@case(4)<h6 class="card-subtitle text-muted">{{ $order->time }} / {{ $order->payment_code }} / {{ $order->value }}</h6>@break
 						@endswitch
 
-            @switch($viewSettings->display['card_line_3'])
+						@switch($viewSettings->display['card_line_3'])
 							@case(1)<h6 class="card-subtitle text-muted mt-1">{{ ($order->address) }}@if($order->type == 'delivery')<a class="p-2 fab fa-google" target="_blank" title="Google Maps" href="{{ 'https://www.google.com/maps/dir/?api=1&destination='.urlencode($order->address) }}"></a><a class="p-2 fab fa-bing" target="_blank" title="Bing Maps" href="{{ 'https://maps.bing.com/?api=1&destination='.urlencode($order->address) }}"><img src="https://www.bing.com/sa/simg/favicon-2x.ico" width="15" height="15" ></a>@endif</h6>@break
 						@endswitch
-
-            @switch($viewSettings->display['card_line_4'])
-              @case(1)<h6 class="card-subtitle text-muted mt-1">{{ $order->payment_code }}</h6>@break
-            @endswitch
 
 						@if($viewSettings->display['card_status'])
 							<h6 class="label label-default mt-2" style="background-color:{!! $order->status_color !!}">{{ $order->status_name }}</h6>
