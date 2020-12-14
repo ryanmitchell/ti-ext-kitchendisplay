@@ -37,9 +37,6 @@ class Views extends Model
 
     public function beforeSave()
     {
-        if (!Request::input('View.name'))
-            $this->name = [];
-
         if (!Request::input('View.locations'))
             $this->locations = [];
 
