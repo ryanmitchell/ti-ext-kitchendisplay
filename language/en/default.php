@@ -3,7 +3,7 @@
 return [
     'text_title' => 'Kitchen Display',
     'text_form_name' => 'View',
-    
+
     'column_id' => 'ID',
     'column_time' => 'Time',
     'column_name' => 'Name',
@@ -27,7 +27,7 @@ return [
     'label_order_assigned' => 'Orders assigned to',
     'label_ordercount' => 'Number of orders to show',
     'label_refreshinterval' => 'Refresh interval in seconds',
-    
+
     'label_button1_enabled' => 'Button 1 enabled',
     'label_button1_text' => 'Button 1 text',
     'label_button1_status' => 'Button 1 status',
@@ -40,27 +40,29 @@ return [
     'label_button3_text' => 'Button 3 text',
     'label_button3_status' => 'Button 3 status',
     'label_button3_color' => 'Button 3 background color',
-    
+
     'label_card_line_1' => 'Line 1 layout',
     'label_card_line_2' => 'Line 2 layout',
     'label_card_line_3' => 'Line 3 layout',
     'label_card_status' => 'Show status',
     'label_card_items' => 'Show menu items',
     'label_card_assign' => 'Show assign',
-    
+
     'option_blank' => 'Blank',
     'option_name_id' => 'Name / Order ID',
     'option_id_name' => 'Order ID / Name',
     'option_time_phone_total' => 'Time / Phone / Total',
     'option_phone_time_total' => 'Phone / Time / Total',
+    'option_time_phone_total_code' => 'Time / Phone / Total / Payment code',
+    'option_phone_time_total_code' => 'Phone / Time / Total / Payment code',
     'option_address' => 'Address',
-    
+
     'tab_general' => 'General',
     'tab_buttons' => 'Buttons',
     'tab_cards' => 'Cards',
-    
+
     'text_empty' => 'No views to display',
-    
+
     'value_anyone' => 'Anyone',
     'value_all_status' => 'All statuses',
     'value_all_orders' => 'All orders',
