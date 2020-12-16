@@ -34,13 +34,6 @@ class Views extends Model
         'display.order_count' => 'required|int|min:0',
         'display.refresh_interval' => 'required|int|min:10',
     ];
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> parent of 6f4e559... Merge branch 'master' into payment-code
-=======
 
     public function beforeSave()
     {
