@@ -54,8 +54,8 @@ return [
     'option_time_phone_total' => 'Time / Phone / Total',
     'option_phone_time_total' => 'Phone / Time / Total',
     'option_address' => 'Address',
-    'option_time_phone_code' => 'Time / Phone / Payment code',
-    'option_time_code_total' => 'Time / Payment code / Total',
+    'option_time_phone_total_code' => 'Time / Phone / Total / Payment code',
+    'option_phone_time_total_code' => 'Phone / Time / Total / Payment code',
 
     'tab_general' => 'General',
     'tab_buttons' => 'Buttons',
