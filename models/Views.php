@@ -44,7 +44,6 @@ class Views extends Model
             $this->categories = [];
     }
 
->>>>>>> parent of d042886... Revert "Merge remote-tracking branch 'upstream/master'"
     public static function getCardLineOptions($line)
     {
 
