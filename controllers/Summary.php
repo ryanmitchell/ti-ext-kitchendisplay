@@ -203,12 +203,19 @@ class Summary extends \Admin\Classes\AdminController
 							$outputAddress = str_replace(', , ', ', ', format_address($address, TRUE));
 						}
 
+						$payment_code = lang('admin::lang.orders.text_no_payment');
+						if ($order->payment_method)
+						{
+							$payment_code = strtoupper($order->payment_method->code);
+						}
+
 						$this->vars['results'][] = (object)[
 							'id' => $order->order_id,
 							'type' => $order->order_type,
 							'time' => $order->order_time,
 							'name' => $order->first_name.' '.$order->last_name,
 							'address' => $outputAddress,
+							'payment_code' => $payment_code,
 							'phone' => $order->telephone,
 							'comment' => $order->comment,
 							'dishes' => $runningDishes,
