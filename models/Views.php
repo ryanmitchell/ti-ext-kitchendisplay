@@ -33,7 +33,11 @@ class Views extends Model
         'display.order_count' => 'required|int|min:0',
         'display.refresh_interval' => 'required|int|min:10',
     ];
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> parent of 6f4e559... Merge branch 'master' into payment-code
     public static function getCardLineOptions($line)
     {
         
@@ -55,6 +59,8 @@ class Views extends Model
                     0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
                     1 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total'),
                     2 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total'),
+                    3 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total_code'),
+                    4 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total_code'),
                 ];
             
             break;             
