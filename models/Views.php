@@ -9,6 +9,7 @@ use Exception;
 use Igniter\Flame\Database\Traits\Validation;
 use Illuminate\Support\Facades\Log;
 use Model;
+use Request;
 
 class Views extends Model
 {
@@ -28,11 +29,20 @@ class Views extends Model
     ];
 
     public $rules = [
-        'locations' => 'sometimes|required',
-        'categories' => 'sometimes|required',
+        'name' => 'required',
+        'locations' => 'required',
         'display.order_count' => 'required|int|min:0',
         'display.refresh_interval' => 'required|int|min:10',
     ];
+
+    public function beforeSave()
+    {
+        if (!Request::input('View.locations'))
+            $this->locations = [];
+
+        if (!Request::input('View.categories'))
+            $this->categories = [];
+    }
 
     public static function getCardLineOptions($line)
     {
@@ -55,8 +65,6 @@ class Views extends Model
                     0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
                     1 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total'),
                     2 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total'),
-                    3 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total_code'),
-                    4 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total_code'),
                 ];
 
             break;
