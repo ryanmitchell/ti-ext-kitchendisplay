@@ -56,6 +56,9 @@ return [
     'option_time_phone_total_code' => 'Time / Phone / Total / Payment code',
     'option_phone_time_total_code' => 'Phone / Time / Total / Payment code',
     'option_address' => 'Address',
+    'option_address_maps_bing' => 'Address + Maps & Bing',
+    'option_address_maps' => 'Address + Maps',
+    'option_address_bing' => 'Address + Bing',
 
     'tab_general' => 'General',
     'tab_buttons' => 'Buttons',
