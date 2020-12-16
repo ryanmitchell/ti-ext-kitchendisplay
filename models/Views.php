@@ -9,7 +9,6 @@ use Exception;
 use Igniter\Flame\Database\Traits\Validation;
 use Illuminate\Support\Facades\Log;
 use Model;
-use Request;
 
 class Views extends Model
 {
@@ -27,48 +26,35 @@ class Views extends Model
         'categories' => 'array',
         'display' => 'serialize',
     ];
-
+    
     public $rules = [
-        'name' => 'required',
-        'locations' => 'required',
+        'locations' => 'sometimes|required',
+        'categories' => 'sometimes|required',
         'display.order_count' => 'required|int|min:0',
         'display.refresh_interval' => 'required|int|min:10',
     ];
-<<<<<<< HEAD
 <<<<<<< HEAD
     
 =======
 
 >>>>>>> parent of 6f4e559... Merge branch 'master' into payment-code
-=======
-
-    public function beforeSave()
-    {
-        if (!Request::input('View.locations'))
-            $this->locations = [];
-
-        if (!Request::input('View.categories'))
-            $this->categories = [];
-    }
-
->>>>>>> parent of d042886... Revert "Merge remote-tracking branch 'upstream/master'"
     public static function getCardLineOptions($line)
     {
-
+        
         switch ($line)
         {
             case 1:
-
+                
                 return [
                     0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
                     1 => lang('lang:thoughtco.kitchendisplay::default.option_name_id'),
                     2 => lang('lang:thoughtco.kitchendisplay::default.option_id_name'),
                 ];
-
-            break;
-
+            
+            break;   
+            
             case 2:
-
+                
                 return [
                     0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
                     1 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total'),
@@ -76,33 +62,33 @@ class Views extends Model
                     3 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total_code'),
                     4 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total_code'),
                 ];
-
-            break;
-
+            
+            break;             
+             
             case 3:
-
+                
                 return [
                     0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
                     1 => lang('lang:thoughtco.kitchendisplay::default.option_address'),
                 ];
-
-            break;
+            
+            break;             
         }
-
+        
         return [];
     }
-
+    
     public static function getCategoriesOptions()
     {
 	    return Categories_model::all()->pluck('name', 'category_id');
     }
-
+    
     public static function getLocationsOptions()
     {
 	    $locations = [];
 	    foreach (Locations_model::isEnabled()->get() as $location){
 	    	$locations[$location->location_id] = $location->location_name;
-	    };
-	    return collect($locations);
-    }
+	    };	  
+	    return collect($locations);  
+    }   
 }
