@@ -293,12 +293,6 @@ return [
 		            'type' => 'select',
 					'options' => \Thoughtco\KitchenDisplay\Models\Views::getCardLineOptions(3),
 		        ],
-            'display[card_line_4]' => [
-                  'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
-                'label' => 'lang:thoughtco.kitchendisplay::default.label_card_line_4',
-                'type' => 'select',
-          'options' => \Thoughtco\KitchenDisplay\Models\Views::getCardLineOptions(4),
-            ],
 	            'display[card_status]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
 		            'label' => 'thoughtco.kitchendisplay::default.label_card_status',
