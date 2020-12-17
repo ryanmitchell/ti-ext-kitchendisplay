@@ -15,7 +15,7 @@ class Extension extends BaseExtension
     {
 		Event::listen('admin.list.extendColumns', function (&$widget) {
 			if ($widget->getController() instanceof \Thoughtco\KitchenDisplay\Controllers\Views){
-                if (!AdminAuth::user()->hasPermission('Thoughtco.KichenDisplay.Manage')) {
+                if (!AdminAuth::user()->hasPermission('Thoughtco.KitchenDisplay.Manage')) {
                     $widget->removeColumn('edit');
                 }
 			}
@@ -23,7 +23,7 @@ class Extension extends BaseExtension
 
 		Event::listen('admin.toolbar.extendButtons', function (&$widget) {
 			if ($widget->getController() instanceof \Thoughtco\KitchenDisplay\Controllers\Views){
-                if (!AdminAuth::user()->hasPermission('Thoughtco.KichenDisplay.Manage')) {
+                if (!AdminAuth::user()->hasPermission('Thoughtco.KitchenDisplay.Manage')) {
                     $widget->getController()->widgets['toolbar']->removeButton('create');
                     $widget->getController()->widgets['toolbar']->removeButton('delete');
                 }
