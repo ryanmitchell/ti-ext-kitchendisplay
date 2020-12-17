@@ -77,6 +77,9 @@ class Views extends Model
                 return [
                     0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
                     1 => lang('lang:thoughtco.kitchendisplay::default.option_address'),
+                    2 => lang('lang:thoughtco.kitchendisplay::default.option_address_maps_bing'),
+                    3 => lang('lang:thoughtco.kitchendisplay::default.option_address_maps'),
+                    4 => lang('lang:thoughtco.kitchendisplay::default.option_address_bing'),
                 ];
 
             break;
