@@ -1,8 +1,9 @@
 <?php namespace Thoughtco\KitchenDisplay;
 
+use AdminAuth;
+use Admin\Widgets\Form;
 use DB;
 use Event;
-use Admin\Widgets\Form;
 use System\Classes\BaseExtension;
 
 /**
@@ -12,19 +13,38 @@ class Extension extends BaseExtension
 {
     public function boot()
     {
-	    	    	    
+		Event::listen('admin.list.extendColumns', function (&$widget) {
+			if ($widget->getController() instanceof \Thoughtco\KitchenDisplay\Controllers\Views){
+                if (!AdminAuth::user()->hasPermission('Thoughtco.KichenDisplay.Manage')) {
+                    $widget->removeColumn('edit');
+                }
+			}
+		});
+
+		Event::listen('admin.toolbar.extendButtons', function (&$widget) {
+			if ($widget->getController() instanceof \Thoughtco\KitchenDisplay\Controllers\Views){
+                if (!AdminAuth::user()->hasPermission('Thoughtco.KichenDisplay.Manage')) {
+                    $widget->getController()->widgets['toolbar']->removeButton('create');
+                    $widget->getController()->widgets['toolbar']->removeButton('delete');
+                }
+			}
+		});
     }
-    
+
     public function registerPermissions()
     {
         return [
+            'Thoughtco.KitchenDisplay.Manage' => [
+                'description' => 'Manage Kitchen Display views',
+                'group' => 'module',
+            ],
             'Thoughtco.KitchenDisplay.View' => [
                 'description' => 'View orders ready to process',
                 'group' => 'module',
             ],
         ];
     }
-    
+
     public function registerNavigation()
     {
         return [

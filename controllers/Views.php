@@ -2,6 +2,7 @@
 
 namespace Thoughtco\KitchenDisplay\Controllers;
 
+use AdminAuth;
 use AdminMenu;
 use Admin\Facades\AdminLocation;
 use ApplicationException;
@@ -31,7 +32,7 @@ class Views extends \Admin\Classes\AdminController
             'title' => 'lang:admin::lang.form.edit_title',
             'redirect' => 'thoughtco/kitchendisplay/views/edit/{id}',
             'redirectClose' => 'thoughtco/kitchendisplay/views',
-        ],        
+        ],
         'edit' => [
             'title' => 'lang:admin::lang.form.edit_title',
             'redirect' => 'thoughtco/kitchendisplay/views/edit/{id}',
@@ -54,11 +55,27 @@ class Views extends \Admin\Classes\AdminController
         parent::__construct();
 
         AdminMenu::setContext('sales', 'summary');
-        Template::setTitle(lang('lang:thoughtco.kitchendisplay::default.text_title'));        
+        Template::setTitle(lang('lang:thoughtco.kitchendisplay::default.text_title'));
     }
 
     public function index()
     {
         $this->asExtension('ListController')->index();
+    }
+
+    public function create()
+    {
+        if (!AdminAuth::user()->hasPermission('Thoughtco.Printer.Manage'))
+            throw new ApplicationException('Permission denied');
+
+        return parent::create();
+    }
+
+    public function edit($a, $b)
+    {
+        if (!AdminAuth::user()->hasPermission('Thoughtco.Printer.Manage'))
+            throw new ApplicationException('Permission denied');
+
+        return parent::edit($a, $b);
     }
 }
