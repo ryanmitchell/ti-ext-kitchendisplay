@@ -65,9 +65,8 @@ class Views extends Model
                     0 => lang('lang:thoughtco.kitchendisplay::default.option_blank'),
                     1 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total'),
                     2 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total'),
-                    3 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total_code'),
-                    4 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total_code'),
-
+                    3 => lang('lang:thoughtco.kitchendisplay::default.option_phone_time_total_code'),
+                    4 => lang('lang:thoughtco.kitchendisplay::default.option_time_phone_total_code'),
                 ];
 
             break;
