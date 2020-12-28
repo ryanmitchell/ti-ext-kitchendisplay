@@ -125,6 +125,7 @@ class Summary extends \Admin\Classes\AdminController
 				$buttonUrl = $assignUrl.'&action=status&actionId=';
 
 				$order->order_time = substr($order->order_time, 0, -3);
+                $order->order_date = substr($order->order_date, 0, 10);
 
 			    $menuItems = $order->getOrderMenus();
 	   			$menuItemsOptions = $order->getOrderMenuOptions();
@@ -213,6 +214,7 @@ class Summary extends \Admin\Classes\AdminController
 							'id' => $order->order_id,
 							'type' => $order->order_type,
 							'time' => Carbon::createFromTimeString($order->order_time)->format(lang('system::lang.php.time_format')),
+                            'date' => $order_date->format(lang('system::lang.php.date_format')),
 							'name' => $order->first_name.' '.$order->last_name,
 							'address' => $outputAddress,
 							'payment_code' => $payment_code,
