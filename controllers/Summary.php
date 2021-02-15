@@ -102,6 +102,9 @@ class Summary extends \Admin\Classes\AdminController
 			    if (count($statuses) > 0)
 					$query->whereIn('status_id', $statuses);
 
+                if ($viewSettings->display['order_sameday'])
+    				$query->where('order_date', '=', date('Y-m-d'));
+
 			    if ($viewSettings->order_assigned != '')
 					$query->where('assignee_id', $viewSettings->order_assigned);
 
