@@ -207,10 +207,16 @@ class Summary extends \Admin\Classes\AdminController
 							$payment_code = strtoupper($order->payment_method->code);
 						}
 
+						$time = lang('admin::lang.orders.label_time_is_asap');
+						if (!$order->order_time_is_asap)
+						{
+							$time = Carbon::createFromTimeString($order->order_time)->format(lang('system::lang.php.time_format'));
+						}
+
 						$this->vars['results'][] = (object)[
 							'id' => $order->order_id,
 							'type' => $order->order_type,
-							'time' => Carbon::createFromTimeString($order->order_time)->format(lang('system::lang.php.time_format')),
+							'time' => $time,
 							'date' => $order->order_date->format(lang('system::lang.php.date_format')),
 							'name' => $order->first_name.' '.$order->last_name,
 							'address' => $outputAddress,
