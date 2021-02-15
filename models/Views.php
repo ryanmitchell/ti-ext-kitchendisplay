@@ -33,6 +33,7 @@ class Views extends Model
         'locations' => 'required',
         'display.order_count' => 'required|int|min:0',
         'display.refresh_interval' => 'required|int|min:10',
+        'display.orders_forXhours' => 'required|int|min:0|max:168',
     ];
 
     public function beforeSave()

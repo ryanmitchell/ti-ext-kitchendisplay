@@ -102,8 +102,8 @@ class Summary extends \Admin\Classes\AdminController
 			    if (count($statuses) > 0)
 					$query->whereIn('status_id', $statuses);
 
-                if ($viewSettings->display['order_sameday'])
-    				$query->where('order_date', '=', date('Y-m-d'));
+                if ($viewSettings->display['orders_forXhours'] > 0)
+                    $query->where(DB::raw("CONCAT(`order_date`, ' ', `order_time`)"), '<=', Carbon::now()->addHours($viewSettings->display['orders_forXhours']));//->dd();
 
 			    if ($viewSettings->order_assigned != '')
 					$query->where('assignee_id', $viewSettings->order_assigned);
@@ -118,6 +118,8 @@ class Summary extends \Admin\Classes\AdminController
 			->orderBy('order_time', 'asc')
 			->limit($viewSettings->display['order_count'])
 			->get();
+
+            // dd($getOrders);
 
 		    foreach ($getOrders as $orderIdx => $order)
 			{

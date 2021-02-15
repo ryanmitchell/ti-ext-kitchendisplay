@@ -139,12 +139,14 @@ return [
 					'default' => 30,
 					'cssClass' => 'flex-width',
 	            ],
-                'display[order_sameday]' => [
+                'display[orders_forXhours]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
-	                'label' => 'lang:thoughtco.kitchendisplay::default.label_ordersameday',
-	                'type' => 'switch',
-	                'default' => 1,
-	                'span' => 'left',
+	                'label' => 'lang:thoughtco.kitchendisplay::default.label_ordersforXhours',
+                    'comment' => 'lang:thoughtco.kitchendisplay::default.comment_ordersforXhours',
+                    'type' => 'text',
+					'span' => 'left',
+					'default' => 24,
+					'cssClass' => 'flex-width',
 	            ],
 	            'display[button1_enable]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
