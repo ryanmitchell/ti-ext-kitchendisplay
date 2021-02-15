@@ -207,7 +207,7 @@ class Summary extends \Admin\Classes\AdminController
 							$payment_code = strtoupper($order->payment_method->code);
 						}
 
-						$time = lang('admin::lang.orders.label_time_is_asap');
+						$time = lang('igniter.local::default.text_asap');
 						if (!$order->order_time_is_asap)
 						{
 							$time = Carbon::createFromTimeString($order->order_time)->format(lang('system::lang.php.time_format'));
