@@ -74,7 +74,6 @@ return [
     'text_empty' => 'No views to display',
 
     'value_anyone' => 'Anyone',
-    // 'value_all_status' => 'All statuses',
     'value_all_orders' => 'All orders',
     'value_delivery' => 'Delivery only',
     'value_collection' => 'Collection only',

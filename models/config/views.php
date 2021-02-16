@@ -104,8 +104,6 @@ return [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 		            'label' => 'thoughtco.kitchendisplay::default.label_order_status',
 		            'type' => 'selectlist',
-                    // 'multiOption' => TRUE,
-					// 'placeholder' => 'lang:admin::lang.text_please_select',
 		            'options' => ['Admin\Models\Statuses_model', 'getDropdownOptionsForOrder'],
 		            'span' => 'left',
 	            ],
