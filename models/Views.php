@@ -25,6 +25,7 @@ class Views extends Model
     public $casts = [
         'locations' => 'array',
         'categories' => 'array',
+        'order_status' => 'array',
         'display' => 'serialize',
     ];
 
