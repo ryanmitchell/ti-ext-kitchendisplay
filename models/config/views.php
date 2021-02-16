@@ -142,11 +142,11 @@ return [
                 'display[orders_forXhours]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 	                'label' => 'lang:thoughtco.kitchendisplay::default.label_ordersforXhours',
-                    'comment' => 'lang:thoughtco.kitchendisplay::default.comment_ordersforXhours',
-                    'type' => 'text',
-					'span' => 'left',
-					'default' => 24,
-					'cssClass' => 'flex-width',
+	                'comment' => 'lang:thoughtco.kitchendisplay::default.comment_ordersforXhours',
+	                'type' => 'text',
+	                'span' => 'left',
+	                'default' => 24,
+	                'cssClass' => 'flex-width',
 	            ],
 	            'display[button1_enable]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',

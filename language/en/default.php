@@ -13,6 +13,8 @@ return [
     'column_total' => 'Total',
     'column_status' => 'Status',
 
+    'comment_ordersforXhours' => '0 means no limits',
+
     'btn_view' => 'View',
     'btn_prep' => 'Prep',
     'btn_ready' => 'Ready',
@@ -27,9 +29,7 @@ return [
     'label_order_assigned' => 'Orders assigned to',
     'label_ordercount' => 'Number of orders to show',
     'label_refreshinterval' => 'Refresh interval in seconds',
-    'label_ordersforXhours' => 'Show only orders made for the next X hours',
-
-    'comment_ordersforXhours' => '0 means no limits',
+    'label_ordersforXhours' => 'Limit to the next X hours of orders',
 
     'label_button1_enabled' => 'Button 1 enabled',
     'label_button1_text' => 'Button 1 text',
