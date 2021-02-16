@@ -43,7 +43,7 @@ class Summary extends \Admin\Classes\AdminController
 		{
 
         	Template::setTitle($viewSettings->name);
-          Template::setHeading($viewSettings->name);
+        	Template::setHeading($viewSettings->name);
 
 		    // add CSS and JS
 		    $this->addCSS('extensions/thoughtco/kitchendisplay/assets/css/kds.css', 'thoughtco-kds');
