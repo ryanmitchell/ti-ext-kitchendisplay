@@ -88,15 +88,21 @@ class Summary extends \Admin\Classes\AdminController
 
 			// what statuses do we query
 			$statuses = [];
-			if ($viewSettings->order_status != '')
-			{
-				$statuses[] = $viewSettings->order_status;
-				if ($viewSettings->display['button1_enable'])
-					$statuses[] = $viewSettings->display['button1_status'];
-				if ($viewSettings->display['button2_enable'])
-					$statuses[] = $viewSettings->display['button2_status'];
-			}
 
+      $statuses = Statuses_model::getDropdownOptionsForOrder()->keys()->transform(function ($item, $key) {
+        return strval($item);
+      });
+
+			// if ($viewSettings->order_status != '')
+			// {
+			// 	$statuses[] = $viewSettings->order_status;
+      // }else{
+      //   $statuses = Statuses_model::getDropdownOptionsForOrder()->keys()->transform(function ($item, $key) {
+      //     return strval($item);
+      //   });
+      //  }
+
+       // dd($statuses);
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
 
