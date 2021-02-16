@@ -209,9 +209,7 @@ class Summary extends \Admin\Classes\AdminController
 
 						$time = lang('igniter.local::default.text_asap');
 						if (!$order->order_time_is_asap)
-						{
-							$time = Carbon::createFromTimeString($order->order_time)->format(lang('system::lang.php.time_format'));
-						}
+						    $time = Carbon::createFromTimeString($order->order_time)->format(lang('system::lang.php.time_format'));
 
 						$this->vars['results'][] = (object)[
 							'id' => $order->order_id,
