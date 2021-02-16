@@ -91,7 +91,7 @@ class Summary extends \Admin\Classes\AdminController
 
 			if (!count($statuses))
 				$statuses[] = $viewSettings->order_status;
-
+      dd($statuses);
 
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
