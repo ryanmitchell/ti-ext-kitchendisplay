@@ -87,8 +87,13 @@ class Summary extends \Admin\Classes\AdminController
 			$this->vars['results'] = [];
 
 			// what statuses do we query
-			$statuses = [];
-			if ($viewSettings->order_status != '')
+			$statuses = is_array($viewSettings->order_status) ? $viewSettings->order_status : [$viewSettings->order_status];
+
+            // remove blanks
+            array_filter($statuses);
+            $statuses = array_values($statuses);
+
+            if (!count($statuses))
 			{
 				$statuses[] = $viewSettings->order_status;
 				if ($viewSettings->display['button1_enable'])

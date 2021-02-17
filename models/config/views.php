@@ -103,8 +103,7 @@ return [
 	            'order_status' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 		            'label' => 'thoughtco.kitchendisplay::default.label_order_status',
-		            'type' => 'select',
-					'placeholder' => 'thoughtco.kitchendisplay::default.value_all_status',
+		            'type' => 'selectlist',
 		            'options' => ['Admin\Models\Statuses_model', 'getDropdownOptionsForOrder'],
 		            'span' => 'left',
 	            ],
