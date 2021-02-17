@@ -37,11 +37,15 @@ class Summary extends \Admin\Classes\AdminController
 
     public function view($route, $viewId)
     {
+        $viewSettings = KitchenViews::where([
+			['id', $viewId],
+			['is_enabled', 1],
+		])->first();
 
         if (!AdminAuth::isSuperUser()) {
-            if (AdminLocation::getId() === NULL || in_array(AdminLocation::getId(), $view->locations)) {
+            if (AdminLocation::getId() === NULL || in_array(AdminLocation::getId(), $viewSettings->locations)) {
 
-                $limitedUsers = array_get($view->display, 'users_limit', []);
+                $limitedUsers = array_get($viewSettings->display, 'users_limit', []);
 
 				if (count($limitedUsers) AND !in_array(AdminAuth::getId(), $limitedUsers))
                     throw new ApplicationException('Permission denied');
@@ -49,10 +53,7 @@ class Summary extends \Admin\Classes\AdminController
             }
         }
 
-		if ($viewSettings = KitchenViews::where([
-			['id', $viewId],
-			['is_enabled', 1],
-		])->first())
+		if ($viewSettings)
 		{
 
         	Template::setTitle($viewSettings->name);
@@ -106,7 +107,7 @@ class Summary extends \Admin\Classes\AdminController
             array_filter($statuses);
             $statuses = array_values($statuses);
 
-            if (!count($statuses))
+            if (count($statuses))
 			{
 				$statuses[] = $viewSettings->order_status;
 				if ($viewSettings->display['button1_enable'])

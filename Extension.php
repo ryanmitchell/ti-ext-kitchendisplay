@@ -6,7 +6,7 @@ use Admin\Widgets\Form;
 use DB;
 use Event;
 use System\Classes\BaseExtension;
-use Thoughtco\KitchenDisplay\Models\Views;
+use Thoughtco\KitchenDisplay\Models\Views as KitchenViews;;
 
 /**
  * Extension Information File
@@ -40,7 +40,8 @@ class Extension extends BaseExtension
             if ($listWidget->getController() instanceof \Thoughtco\KitchenDisplay\Controllers\Views) {
 
                 // build list of views the user is allowed to access by location
-		        $viewList = Views::where(['is_enabled' => true])
+		        $viewList = KitchenViews::where(['is_enabled' => true])
+                ->get()
 				->map(function($view) {
                     if (AdminLocation::getId() === NULL || in_array(AdminLocation::getId(), $view->locations)) {
 

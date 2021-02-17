@@ -65,7 +65,7 @@ class Views extends \Admin\Classes\AdminController
 
     public function create()
     {
-        if (!AdminAuth::user()->hasPermission('Thoughtco.Printer.Manage'))
+        if (!AdminAuth::user()->hasPermission('Thoughtco.KitchenDisplay.Manage'))
             throw new ApplicationException('Permission denied');
 
         return parent::create();
@@ -73,7 +73,7 @@ class Views extends \Admin\Classes\AdminController
 
     public function edit($a, $b)
     {
-        if (!AdminAuth::user()->hasPermission('Thoughtco.Printer.Manage'))
+        if (!AdminAuth::user()->hasPermission('Thoughtco.KitchenDisplay.Manage'))
             throw new ApplicationException('Permission denied');
 
         return parent::edit($a, $b);
