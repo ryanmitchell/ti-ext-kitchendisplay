@@ -148,6 +148,16 @@ return [
 	                'default' => 24,
 	                'cssClass' => 'flex-width',
 	            ],
+                'display[users_limit]' => [
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
+	                'label' => 'lang:thoughtco.kitchendisplay::default.label_limitUsers',
+                    'comment' => 'lang:thoughtco.kitchendisplay::default.comment_limitUsers',
+	                'type' => 'selectlist',
+	                'default' => '',
+                    'cssClass' => 'flex-width',
+		            'options' => ['\Admin\Models\Staffs_model', 'getDropdownOptions'],
+	                'span' => 'right',
+				],
 	            'display[button1_enable]' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_buttons',
 		            'label' => 'thoughtco.kitchendisplay::default.label_button1_status',

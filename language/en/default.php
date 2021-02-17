@@ -14,6 +14,7 @@ return [
     'column_status' => 'Status',
 
     'comment_ordersforXhours' => '0 means no limits',
+    'comment_limitUsers' => 'None selected means no restrictions',
 
     'btn_view' => 'View',
     'btn_prep' => 'Prep',
@@ -30,6 +31,7 @@ return [
     'label_ordercount' => 'Number of orders to show',
     'label_refreshinterval' => 'Refresh interval in seconds',
     'label_ordersforXhours' => 'Limit to the next X hours of orders',
+    'label_limitUsers' => 'Restrict access to selected users',
 
     'label_button1_enabled' => 'Button 1 enabled',
     'label_button1_text' => 'Button 1 text',
