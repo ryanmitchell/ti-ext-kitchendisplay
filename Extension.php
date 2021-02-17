@@ -1,11 +1,10 @@
 <?php namespace Thoughtco\KitchenDisplay;
 
 use AdminAuth;
+use Admin\Facades\AdminLocation;
 use Admin\Widgets\Form;
 use DB;
 use Event;
-use Illuminate\Support\Arr;
-use Admin\Facades\AdminLocation;
 use System\Classes\BaseExtension;
 use Thoughtco\KitchenDisplay\Models\Views;
 
@@ -34,19 +33,30 @@ class Extension extends BaseExtension
 		});
 
         Event::listen('admin.list.extendQuery', function ($listWidget, $query) {
-            if ($listWidget->getController() instanceof \Thoughtco\KitchenDisplay\Controllers\Views){
+
+            if (AdminAuth::isSuperUser())
+                return;
+
+            if ($listWidget->getController() instanceof \Thoughtco\KitchenDisplay\Controllers\Views) {
+
                 // build list of views the user is allowed to access by location
-		        $viewList = [];
-		        Views::where(['is_enabled' => true])
-				->each(function($view) use (&$viewList) {
-                        //if (AdminLocation::getId() === NULL || AdminLocation::getId() == $view->locations) {
-                            $limitedUsers = Arr::get($view->display, 'users_limit', []);
-							if (in_array(AdminAuth::getId(), $limitedUsers)) {
-				        		$viewList[] = $view->id;
-							}
-				        //}
-		        });
-                $query->whereIn('id', $viewList);
+		        $viewList = Views::where(['is_enabled' => true])
+				->map(function($view) {
+                    if (AdminLocation::getId() === NULL || in_array(AdminLocation::getId(), $view->locations)) {
+
+                        $limitedUsers = array_get($view->display, 'users_limit', []);
+
+                        // if users is blank or in array
+						if (!count($limitedUsers) OR in_array(AdminAuth::getId(), $limitedUsers))
+			        		return $view->id;
+
+			        }
+
+                    return;
+		        })
+                ->whereNotNull();
+
+                $query->whereIn('id', $viewList->toArray());
 			}
         });
     }

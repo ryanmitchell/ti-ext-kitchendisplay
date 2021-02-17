@@ -2,6 +2,7 @@
 
 namespace Thoughtco\KitchenDisplay\Controllers;
 
+use AdminAuth;
 use AdminMenu;
 use Admin\Facades\AdminLocation;
 use Admin\Models\Locations_model;
@@ -36,6 +37,18 @@ class Summary extends \Admin\Classes\AdminController
 
     public function view($route, $viewId)
     {
+
+        if (!AdminAuth::isSuperUser()) {
+            if (AdminLocation::getId() === NULL || in_array(AdminLocation::getId(), $view->locations)) {
+
+                $limitedUsers = array_get($view->display, 'users_limit', []);
+
+				if (count($limitedUsers) AND !in_array(AdminAuth::getId(), $limitedUsers))
+                    throw new ApplicationException('Permission denied');
+
+            }
+        }
+
 		if ($viewSettings = KitchenViews::where([
 			['id', $viewId],
 			['is_enabled', 1],
