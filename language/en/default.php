@@ -26,7 +26,7 @@ return [
     'label_locations' => 'Orders from locations',
     'label_categories' => 'Show menu items from categories',
     'label_ordertypes' => 'Type of orders',
-    'label_order_status' => 'Orders with initial status',
+    'label_order_status' => 'Orders with selected status',
     'label_order_assigned' => 'Orders assigned to',
     'label_ordercount' => 'Number of orders to show',
     'label_refreshinterval' => 'Refresh interval in seconds',
@@ -76,7 +76,6 @@ return [
     'text_empty' => 'No views to display',
 
     'value_anyone' => 'Anyone',
-    'value_all_status' => 'All statuses',
     'value_all_orders' => 'All orders',
     'value_delivery' => 'Delivery only',
     'value_collection' => 'Collection only',
