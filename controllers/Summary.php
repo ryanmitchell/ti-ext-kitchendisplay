@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Igniter\Flame\Currency;
 use Request;
 use Template;
+use DB;
 use Thoughtco\KitchenDisplay\Models\Views as KitchenViews;
 
 /**
@@ -118,11 +119,11 @@ class Summary extends \Admin\Classes\AdminController
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
 
-			    if (count($statuses) > 0)
+			    if (isset($statuses))
 					$query->whereIn('status_id', $statuses);
 
                 if (isset($viewSettings->display['orders_forXhours']) AND $viewSettings->display['orders_forXhours'] > 0)
-                    $query->whereRaw("CONCAT(order_date, ' ', order_time)", '<=', Carbon::now()->addHours($viewSettings->display['orders_forXhours'])->format('Y-m-d H:i'));
+                    $query->where(DB::raw("CONCAT(order_date, ' ', order_time)"), '<=', Carbon::now()->addHours($viewSettings->display['orders_forXhours'])->format('Y-m-d H:i'));
 
 			    if ($viewSettings->order_assigned != '')
 					$query->where('assignee_id', $viewSettings->order_assigned);
