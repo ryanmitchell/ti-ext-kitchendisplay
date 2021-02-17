@@ -12,7 +12,6 @@ use Admin\Models\Staffs_model;
 use Admin\Models\Statuses_model;
 use ApplicationException;
 use Carbon\Carbon;
-use DB;
 use Igniter\Flame\Currency;
 use Request;
 use Template;
@@ -101,20 +100,22 @@ class Summary extends \Admin\Classes\AdminController
 			$this->vars['results'] = [];
 
 			// what statuses do we query
-			$statuses = is_array($viewSettings->order_status) ? $viewSettings->order_status : [$viewSettings->order_status];
 
-            // remove blanks
-            array_filter($statuses);
-            $statuses = array_values($statuses);
+            if (is_array($viewSettings->order_status)){
+                $statuses = $viewSettings->order_status;
+            } else {
 
-            if (count($statuses))
-			{
-				$statuses[] = $viewSettings->order_status;
-				if ($viewSettings->display['button1_enable'])
-					$statuses[] = $viewSettings->display['button1_status'];
-				if ($viewSettings->display['button2_enable'])
-					$statuses[] = $viewSettings->display['button2_status'];
-			}
+    			$statuses = [];
+
+                if (!count($statuses))
+    			{
+    				$statuses[] = $viewSettings->order_status;
+    				if ($viewSettings->display['button1_enable'])
+    					$statuses[] = $viewSettings->display['button1_status'];
+    				if ($viewSettings->display['button2_enable'])
+    					$statuses[] = $viewSettings->display['button2_status'];
+    			}
+            }
 
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
@@ -123,7 +124,7 @@ class Summary extends \Admin\Classes\AdminController
 					$query->whereIn('status_id', $statuses);
 
                 if (isset($viewSettings->display['orders_forXhours']) AND $viewSettings->display['orders_forXhours'] > 0)
-                    $query->where(DB::raw("CONCAT(order_date, ' ', order_time)"), '<=', Carbon::now()->addHours($viewSettings->display['orders_forXhours'])->format('Y-m-d H:i'));
+                    $query->whereRaw("CONCAT(order_date, ' ', order_time)", '<=', Carbon::now()->addHours($viewSettings->display['orders_forXhours'])->format('Y-m-d H:i'));
 
 			    if ($viewSettings->order_assigned != '')
 					$query->where('assignee_id', $viewSettings->order_assigned);
