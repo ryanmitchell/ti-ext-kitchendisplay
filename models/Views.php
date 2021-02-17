@@ -44,9 +44,6 @@ class Views extends Model
 
         if (!Request::input('View.categories'))
             $this->categories = [];
-
-        if (!Request::input('View.users_limit'))
-            $this->users_limit = [];
     }
 
     public static function getCardLineOptions($line)
