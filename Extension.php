@@ -6,7 +6,7 @@ use Admin\Widgets\Form;
 use DB;
 use Event;
 use System\Classes\BaseExtension;
-use Thoughtco\KitchenDisplay\Models\Views as KitchenViews;;
+use Thoughtco\KitchenDisplay\Models\Views as KitchenViews;
 
 /**
  * Extension Information File
