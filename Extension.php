@@ -1,10 +1,12 @@
 <?php namespace Thoughtco\KitchenDisplay;
 
 use AdminAuth;
+use Admin\Facades\AdminLocation;
 use Admin\Widgets\Form;
 use DB;
 use Event;
 use System\Classes\BaseExtension;
+use Thoughtco\KitchenDisplay\Models\Views as KitchenViews;
 
 /**
  * Extension Information File
@@ -29,6 +31,35 @@ class Extension extends BaseExtension
                 }
 			}
 		});
+
+        Event::listen('admin.list.extendQuery', function ($listWidget, $query) {
+
+            if (AdminAuth::isSuperUser())
+                return;
+
+            if ($listWidget->getController() instanceof \Thoughtco\KitchenDisplay\Controllers\Views) {
+
+                // build list of views the user is allowed to access by location
+		        $viewList = KitchenViews::where(['is_enabled' => true])
+                ->get()
+				->map(function($view) {
+                    if (AdminLocation::getId() === NULL || in_array(AdminLocation::getId(), $view->locations)) {
+
+                        $limitedUsers = array_get($view->display, 'users_limit', []);
+
+                        // if users is blank or in array
+						if (!count($limitedUsers) OR in_array(AdminAuth::getId(), $limitedUsers))
+			        		return $view->id;
+
+			        }
+
+                    return;
+		        })
+                ->whereNotNull();
+
+                $query->whereIn('id', $viewList->toArray());
+			}
+        });
     }
 
     public function registerPermissions()

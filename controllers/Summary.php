@@ -2,6 +2,7 @@
 
 namespace Thoughtco\KitchenDisplay\Controllers;
 
+use AdminAuth;
 use AdminMenu;
 use Admin\Facades\AdminLocation;
 use Admin\Models\Locations_model;
@@ -14,6 +15,7 @@ use Carbon\Carbon;
 use Igniter\Flame\Currency;
 use Request;
 use Template;
+use DB;
 use Thoughtco\KitchenDisplay\Models\Views as KitchenViews;
 
 /**
@@ -35,10 +37,23 @@ class Summary extends \Admin\Classes\AdminController
 
     public function view($route, $viewId)
     {
-		if ($viewSettings = KitchenViews::where([
+        $viewSettings = KitchenViews::where([
 			['id', $viewId],
 			['is_enabled', 1],
-		])->first())
+		])->first();
+
+        if (!AdminAuth::isSuperUser()) {
+            if (AdminLocation::getId() === NULL || in_array(AdminLocation::getId(), $viewSettings->locations)) {
+
+                $limitedUsers = array_get($viewSettings->display, 'users_limit', []);
+
+				if (count($limitedUsers) AND !in_array(AdminAuth::getId(), $limitedUsers))
+                    throw new ApplicationException('Permission denied');
+
+            }
+        }
+
+		if ($viewSettings)
 		{
 
         	Template::setTitle($viewSettings->name);
@@ -85,31 +100,30 @@ class Summary extends \Admin\Classes\AdminController
 			$this->vars['viewSettings'] = $viewSettings;
 			$this->vars['results'] = [];
 
-			// what statuses do we query
-            if (is_array($viewSettings->order_status)){
-                $statuses = $viewSettings->order_status;
-            } else {
+            // what statuses do we query
+             if (isset($viewSettings->display['orders_forXhours'])){
+                 $statuses = $viewSettings->order_status;
+             } else {
+                 $statuses = [];
 
-    			$statuses = [];
-
-                if (!count($statuses))
-    			{
-    				$statuses[] = $viewSettings->order_status;
-    				if ($viewSettings->display['button1_enable'])
-    					$statuses[] = $viewSettings->display['button1_status'];
-    				if ($viewSettings->display['button2_enable'])
-    					$statuses[] = $viewSettings->display['button2_status'];
-    			}
-            }
+                 if (!count($statuses))
+                 {
+                     $statuses[] = $viewSettings->order_status;
+                     if ($viewSettings->display['button1_enable'])
+                         $statuses[] = $viewSettings->display['button1_status'];
+                     if ($viewSettings->display['button2_enable'])
+                         $statuses[] = $viewSettings->display['button2_status'];
+                 }
+             }
 
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
 
-			    if (count($statuses) > 0)
+			    if (isset($statuses))
 					$query->whereIn('status_id', $statuses);
 
                 if (isset($viewSettings->display['orders_forXhours']) AND $viewSettings->display['orders_forXhours'] > 0)
-                    $query->whereRaw("CONCAT(order_date, ' ', order_time)", '<=', Carbon::now()->addHours($viewSettings->display['orders_forXhours'])->format('Y-m-d H:i'));
+                    $query->where(DB::raw("CONCAT(order_date, ' ', order_time)"), '<=', Carbon::now()->addHours($viewSettings->display['orders_forXhours'])->format('Y-m-d H:i'));
 
 			    if ($viewSettings->order_assigned != '')
 					$query->where('assignee_id', $viewSettings->order_assigned);
