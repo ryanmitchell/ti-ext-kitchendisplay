@@ -44,6 +44,9 @@ class Views extends Model
 
         if (!Request::input('View.categories'))
             $this->categories = [];
+
+        if (!Request::input('View.order_status'))
+            $this->order_status = [];
     }
 
     public static function getCardLineOptions($line)
