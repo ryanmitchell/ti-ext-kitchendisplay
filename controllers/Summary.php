@@ -147,69 +147,73 @@ class Summary extends \Admin\Classes\AdminController
 				$assignUrl = admin_url('thoughtco/kitchendisplay/summary/view/'.$viewId.'?orderId='.$order->order_id);
 				$buttonUrl = $assignUrl.'&action=status&actionId=';
 
-			    $menuItems = $order->getOrderMenus();
-	   			$menuItemsOptions = $order->getOrderMenuOptions();
+                $menuItems = $order->getOrderMenusWithOptions();
+                foreach ($menuItems as $key => $menu) {
 
-		        $menuItems = $menuItems->toArray();
-		        foreach ($menuItems as $menuIdx => $menu)
-				{
-			        $menu->category_priority = 100;
-			        $menuModel = Menus_model::with('categories')->where('menu_id', $menu->menu_id)->first();
-			        if (isset($menuModel->categories) && count($menuModel->categories) > 0)
-					{
-				        $menu->category_priority = $menuModel->categories[0]->priority;
+                    $forget = false;
 
-						// if we have no overlapping categories then remove
-						if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
-						{
-							if (count(array_intersect($menuModel->categories->pluck('category_id')->toArray(), $viewSettings->categories)) < 1)
-								unset($menuItems[$menuIdx]);
-						}
-			        }
-					else if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
+                    $menuModel = Menus_model::with('categories')->where('menu_id', $menu->menu_id)->first();
+
+					// if we have no overlapping categories then remove
+					if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
 					{
-						unset($menuItems[$menuIdx]);
+						if (count(array_intersect($menuModel->categories->pluck('category_id')->toArray(), $viewSettings->categories)) < 1)
+							$forget = true;
 					}
-		        }
+                    else if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
+					{
+						$forget = true;
+                    }
+
+                    if ($forget)
+                    {
+                        $menuItems->forget($key);
+                        continue;
+                    }
+
+                    $optionData = [];
+
+			        $menu->category_priority = 100;
+                    if ($cat = $menuModel->categories->sortBy('priority')->first())
+                        $menu->category_priority = $cat->priority;
+
+   					$runningDishes[] = '<strong>'.$menu->quantity.'x '.$menu->name.'</strong>';
+
+                    $hasMenuOption = false;
+                    foreach ($menu->menu_options->groupBy('order_option_group') as $menuItemOptionGroupName => $menuItemOptions) {
+
+                        if (!$hasMenuOption)
+    						$runningDishes[] = '<ul class="list-unstyled mb-0 pl-3">';
+
+                        $hasMenuOption = true;
+
+                        $runningDishes[] = '<li><strong>'.$menuItemOptionGroupName.'</strong></li>';
+
+                        foreach ($menuItemOptions as $menuItemOption) {
+    						$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
+                        }
+
+                    }
+
+					if (!$hasMenuOption)
+				        $runningDishes[] = '<br/>';
+                    else
+    					$runningDishes[] = '</ul>';
+
+	                if ($menu->comment != '')
+					{
+		            	$runningDishes[] = '<em>'.$menu->comment.'</em><br/>';
+	                }
+
+	                $runningDishes[] = '';
+
+                }
 
 				// if we have no menu items
 				if (!count($menuItems) > 0)
 					continue;
 
-				// order by category priority
-		        uasort($menuItems, function($a, $b){
-			        return $a->category_priority > $b->category_priority ? 1 : -1;
-		        });
-
-				foreach ($menuItems as $menuItem)
-				{
-
-					$runningDishes[] = '<strong>'.$menuItem->quantity.'x '.$menuItem->name.'</strong>';
-
-					if ($menuItemOptions = $menuItemsOptions->get($menuItem->order_menu_id))
-					{
-
-						$runningDishes[] = '<ul class="list-unstyled mb-0 pl-3">';
-						foreach ($menuItemOptions as $menuItemOption)
-						{
-							$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
-						}
-						$runningDishes[] = '</li>';
-						$runningDishes[] = '</ul>';
-					}
-					else
-					{
-				        $runningDishes[] = '<br/>';
-					}
-
-	                if ($menuItem->comment != '')
-					{
-		            	$runningDishes[] = '<em>'.$menuItem->comment.'</em><br/>';
-	                }
-
-	                $runningDishes[] = '';
-
-	      		}
+                $menuItems = $menuItems->sortBy('category_priority');
 
 				foreach ($order->getOrderTotals() as $total)
 				{
