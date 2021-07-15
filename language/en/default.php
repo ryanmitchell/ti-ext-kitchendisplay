@@ -52,6 +52,7 @@ return [
     'label_card_status' => 'Show status',
     'label_card_items' => 'Show menu items',
     'label_card_assign' => 'Show assign',
+    'label_card_print' => 'Show print',
 
     'option_blank' => 'Blank',
     'option_name_id' => 'Name / Order ID',

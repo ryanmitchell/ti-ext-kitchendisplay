@@ -67,6 +67,24 @@
 							@endif
 						</div>
 						@endif
+						
+						@if($order->print != '')
+						<div class="mt-4">
+							@if (count($order->print) > 1)
+							<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">@lang('thoughtco.printer::default.btn_print')</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="{{ admin_url('thoughtco/printer/printdocket?sale='.$order->id) }}">@lang('thoughtco.printer::default.btn_print_all')</a>
+								@foreach ($order->print as $printerid => $printer)
+									<a class="dropdown-item" href="{{ admin_url('thoughtco/printer/printdocket?sale='.$order->id.'&printer='.$printerid) }}">{{ $printer }}</a>
+								@endforeach
+								</div>
+							</div>
+							@else
+							<a class="dropdown-item" href="{{ admin_url('thoughtco/printer/printdocket?sale='.$order->id) }}">@lang('thoughtco.printer::default.btn_print')</a>
+							@endif
+						</div>
+						@endif
 
 					</div>
 				</div>

@@ -329,6 +329,12 @@ return [
 		            'type' => 'switch',
 					'default' => FALSE,
 	            ],
+	            'display[print]' => !(\System\Classes\ExtensionManager::instance()->isDisabled('thoughtco.printer')) ? [
+	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
+		            'label' => 'thoughtco.kitchendisplay::default.label_card_print',
+		            'type' => 'switch',
+					'default' => FALSE,
+	            ] : null,
 			]
         ]
     ],

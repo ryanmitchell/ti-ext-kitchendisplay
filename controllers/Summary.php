@@ -260,6 +260,7 @@ class Summary extends \Admin\Classes\AdminController
 							'assign' => $viewSettings->display['assign'] ? Staffs_model::getDropdownOptions() : '',
 							'assign_url' => $assignUrl,
 							'assigned_to' => $order->assignee ? $order->assignee->staff_id : -1,
+							'print' => isset($viewSettings->display['print']) && $viewSettings->display['print'] ? \Thoughtco\Printer\Models\Printer::all()->pluck('label', 'id') : '',
 						];
 					}
 				}
