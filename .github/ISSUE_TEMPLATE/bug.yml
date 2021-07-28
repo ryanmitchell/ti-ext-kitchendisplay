@@ -21,15 +21,11 @@ body:
       placeholder: Tell us what you didn't see!
     validations:
       required: true
-  - type: dropdown
+  - type: input
     id: version
     attributes:
       label: Version
       description: What version of our software are you running?
-      options:
-        - 3.0.4 (Stable)
-        - 3.0.4 (Beta)
-        - Other (please detail)
     validations:
       required: true
   - type: dropdown
