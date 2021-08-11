@@ -2,6 +2,10 @@
 
 Adds the ability to create multiple order processing views designed to facilitate expediting orders through the restaurant.
 
+This is free and doesn't require a license, but you can [donate to Ryan](https://github.com/sponsors/ryanmitchell), the developer behind it, to show your appreciation.
+
+### Usage
+
 The views will show a breakdown of any incomplete orders or orders that match the criteria set by the view specifications. View specifications are user selectable and include options for location(s), initial status to appear on the view, order type, category (facilitating "station" display panels), assignee (facilitating delivery drivers and pickup stations), number of orders to display and refresh interval.
 
 The orders are listed based on their scheduled pick-up time.
