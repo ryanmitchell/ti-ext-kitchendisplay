@@ -1,6 +1,6 @@
 <?php
 
-return [
+$config = [
     'list' => [
         'toolbar' => [
             'buttons' => [
@@ -329,13 +329,20 @@ return [
 		            'type' => 'switch',
 					'default' => FALSE,
 	            ],
-	            'display[print]' => !(\System\Classes\ExtensionManager::instance()->isDisabled('thoughtco.printer')) ? [
-	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
-		            'label' => 'thoughtco.kitchendisplay::default.label_card_print',
-		            'type' => 'switch',
-					'default' => FALSE,
-	            ] : null,
 			]
         ]
     ],
 ];
+
+if (!\System\Classes\ExtensionManager::instance()->isDisabled('thoughtco.printer')) {
+
+   $config['form']['tabs']['fields']['display[print]'] = [
+        'tab' => 'lang:thoughtco.kitchendisplay::default.tab_cards',
+        'label' => 'thoughtco.kitchendisplay::default.label_card_print',
+        'type' => 'switch',
+		'default' => FALSE,
+    ] ;
+
+}
+
+return $config;
