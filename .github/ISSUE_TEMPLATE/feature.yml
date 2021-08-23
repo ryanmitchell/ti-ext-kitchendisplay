@@ -14,14 +14,10 @@ body:
       description: Give us as much detail as you can about the feature you want to see, including links and screenshots of other systems that do it already.
     validations:
       required: true
-  - type: dropdown
+  - type: input
     id: version
     attributes:
       label: Version
       description: What version of our software are you running?
-      options:
-        - 3.0.4 (Stable)
-        - 3.0.4 (Beta)
-        - Other (please detail)
     validations:
       required: true
