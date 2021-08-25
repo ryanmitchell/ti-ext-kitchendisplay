@@ -155,47 +155,53 @@ class Summary extends \Admin\Classes\AdminController
                 foreach ($menuItems as $key => $menu) {
 
                     $forget = false;
+                    $hasMenuOption = false;
 
                     $menuModel = Menus_model::with('categories')->where('menu_id', $menu->menu_id)->first();
 
-					// if we have no overlapping categories then remove
-					if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
-					{
-                        $menu_cats = $menuModel->categories->pluck('category_id')->toArray();
-						if (count($menu_cats) AND count(array_intersect($menu_cats, $viewSettings->categories)) < 1)
-							$forget = true;
-					}
-                    else if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
-					{
-						$forget = true;
-                    }
+                    if ($menuModel) {
 
-                    if ($forget)
-                    {
-                        $menuItems->forget($key);
-                        continue;
-                    }
+    					// if we have no overlapping categories then remove
+    					if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
+    					{
+                            $menu_cats = $menuModel->categories->pluck('category_id')->toArray();
+    						if (count($menu_cats) AND count(array_intersect($menu_cats, $viewSettings->categories)) < 1)
+    							$forget = true;
+    					}
+                        else if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
+    					{
+    						$forget = true;
+                        }
 
-                    $optionData = [];
+                        }
 
-			        $menu->category_priority = 100;
-                    if ($cat = $menuModel->categories->sortBy('priority')->first())
-                        $menu->category_priority = $cat->priority;
+                        if ($forget)
+                        {
+                            $menuItems->forget($key);
+                            continue;
+                        }
 
-   					$runningDishes[] = '<strong>'.$menu->quantity.'x '.$menu->name.'</strong>';
+                        $optionData = [];
 
-                    $hasMenuOption = false;
-                    foreach ($menu->menu_options->groupBy('order_option_group') as $menuItemOptionGroupName => $menuItemOptions) {
+    			        $menu->category_priority = 100;
+                        if ($cat = $menuModel->categories->sortBy('priority')->first())
+                            $menu->category_priority = $cat->priority;
 
-                        if (!$hasMenuOption)
-    						$runningDishes[] = '<ul class="list-unstyled mb-0 pl-3">';
+       					$runningDishes[] = '<strong>'.$menu->quantity.'x '.$menu->name.'</strong>';
 
-                        $hasMenuOption = true;
+                        foreach ($menu->menu_options->groupBy('order_option_group') as $menuItemOptionGroupName => $menuItemOptions) {
 
-                        $runningDishes[] = '<li><strong>'.$menuItemOptionGroupName.'</strong></li>';
+                            if (!$hasMenuOption)
+        						$runningDishes[] = '<ul class="list-unstyled mb-0 pl-3">';
 
-                        foreach ($menuItemOptions as $menuItemOption) {
-    						$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
+                            $hasMenuOption = true;
+
+                            $runningDishes[] = '<li><strong>'.$menuItemOptionGroupName.'</strong></li>';
+
+                            foreach ($menuItemOptions as $menuItemOption) {
+        						$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
+                            }
+
                         }
 
                     }
