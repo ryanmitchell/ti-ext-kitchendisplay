@@ -26,6 +26,7 @@ class Views extends Model
         'locations' => 'array',
         'categories' => 'array',
         'order_status' => 'array',
+        'order_types' => 'array',
         'display' => 'serialize',
     ];
 

@@ -114,7 +114,7 @@ class Summary extends \Admin\Classes\AdminController
                      if ($viewSettings->display['button2_enable'])
                          $statuses[] = $viewSettings->display['button2_status'];
                  }
-             }
+            }
 
 		    // get orders for the day requested
 		    $getOrders = Orders_model::where(function($query) use ($viewSettings, $statuses){
@@ -131,13 +131,16 @@ class Summary extends \Admin\Classes\AdminController
 				if ($viewSettings->locations != '')
 					$query->whereIn('location_id', $viewSettings->locations);
 
-				if ($viewSettings->order_types != 0)
+                // backwards compat
+                if (is_numeric($viewSettings->order_types))
 					$query->where('order_type', $viewSettings->order_types == 1 ? 'delivery' : 'collection');
+                else if ($viewSettings->order_types != '')
+					$query->whereIn('order_type', $viewSettings->order_types);
 			})
 			->orderBy('order_date', 'asc')
 			->orderBy('order_time', 'asc')
 			->limit($viewSettings->display['order_count'])
-			->get();
+            ->get();
 
 		    foreach ($getOrders as $orderIdx => $order)
 			{
@@ -148,53 +151,51 @@ class Summary extends \Admin\Classes\AdminController
 				$buttonUrl = $assignUrl.'&action=status&actionId=';
 
                 $menuItems = $order->getOrderMenusWithOptions();
+
                 foreach ($menuItems as $key => $menu) {
 
                     $forget = false;
-                    $hasMenuOption = false;
 
                     $menuModel = Menus_model::with('categories')->where('menu_id', $menu->menu_id)->first();
 
-                    if ($menuModel) {
+					// if we have no overlapping categories then remove
+					if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
+					{
+                        $menu_cats = $menuModel->categories->pluck('category_id')->toArray();
+						if (count($menu_cats) AND count(array_intersect($menu_cats, $viewSettings->categories)) < 1)
+							$forget = true;
+					}
+                    else if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
+					{
+						$forget = true;
+                    }
 
-    					// if we have no overlapping categories then remove
-    					if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
-    					{
-    						if (count(array_intersect($menuModel->categories->pluck('category_id')->toArray(), $viewSettings->categories)) < 1)
-    							$forget = true;
-    					}
-                        else if (isset($viewSettings->categories) && count($viewSettings->categories) > 0)
-    					{
-    						$forget = true;
-                        }
+                    if ($forget)
+                    {
+                        $menuItems->forget($key);
+                        continue;
+                    }
 
-                        if ($forget)
-                        {
-                            $menuItems->forget($key);
-                            continue;
-                        }
+                    $optionData = [];
 
-                        $optionData = [];
+			        $menu->category_priority = 100;
+                    if ($cat = $menuModel->categories->sortBy('priority')->first())
+                        $menu->category_priority = $cat->priority;
 
-    			        $menu->category_priority = 100;
-                        if ($cat = $menuModel->categories->sortBy('priority')->first())
-                            $menu->category_priority = $cat->priority;
+   					$runningDishes[] = '<strong>'.$menu->quantity.'x '.$menu->name.'</strong>';
 
-       					$runningDishes[] = '<strong>'.$menu->quantity.'x '.$menu->name.'</strong>';
+                    $hasMenuOption = false;
+                    foreach ($menu->menu_options->groupBy('order_option_group') as $menuItemOptionGroupName => $menuItemOptions) {
 
-                        foreach ($menu->menu_options->groupBy('order_option_group') as $menuItemOptionGroupName => $menuItemOptions) {
+                        if (!$hasMenuOption)
+    						$runningDishes[] = '<ul class="list-unstyled mb-0 pl-3">';
 
-                            if (!$hasMenuOption)
-        						$runningDishes[] = '<ul class="list-unstyled mb-0 pl-3">';
+                        $hasMenuOption = true;
 
-                            $hasMenuOption = true;
+                        $runningDishes[] = '<li><strong>'.$menuItemOptionGroupName.'</strong></li>';
 
-                            $runningDishes[] = '<li><strong>'.$menuItemOptionGroupName.'</strong></li>';
-
-                            foreach ($menuItemOptions as $menuItemOption) {
-        						$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
-                            }
-
+                        foreach ($menuItemOptions as $menuItemOption) {
+    						$runningDishes[] = '<li>'.$menuItemOption->quantity.'x '.$menuItemOption->order_option_name;
                         }
 
                     }
@@ -245,6 +246,7 @@ class Summary extends \Admin\Classes\AdminController
 						$this->vars['results'][] = (object)[
 							'id' => $order->order_id,
 							'type' => $order->order_type,
+							'type_name' => $order->order_type_name,
 							'time' => $time,
 							'date' => $order->order_date->format(lang('system::lang.php.date_format')),
 							'name' => $order->first_name.' '.$order->last_name,

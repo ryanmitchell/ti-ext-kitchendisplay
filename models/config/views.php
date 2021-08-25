@@ -92,13 +92,10 @@ $config = [
 		        'order_types' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
 		            'label' => 'lang:thoughtco.kitchendisplay::default.label_ordertypes',
-		            'type' => 'radiotoggle',
-		            'span' => 'right',
-		            'options' => [
-		            	'lang:thoughtco.kitchendisplay::default.value_all_orders',
-		            	'lang:thoughtco.kitchendisplay::default.value_delivery',
-		            	'lang:thoughtco.kitchendisplay::default.value_collection',
-		            ],
+                    'type' => 'select',
+                    'multiOption' => TRUE,
+                    'span' => 'right',
+                    'options' => ['Admin\Models\Locations_model', 'getOrderTypeOptions'],
 		        ],
 	            'order_status' => [
 	                'tab' => 'lang:thoughtco.kitchendisplay::default.tab_general',
