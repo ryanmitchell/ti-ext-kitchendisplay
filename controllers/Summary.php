@@ -2,20 +2,20 @@
 
 namespace Thoughtco\KitchenDisplay\Controllers;
 
-use AdminAuth;
-use AdminMenu;
+use Admin\Facades\AdminAuth;
 use Admin\Facades\AdminLocation;
+use Admin\Facades\AdminMenu;
+use Admin\Facades\Template;
 use Admin\Models\Locations_model;
 use Admin\Models\Menus_model;
 use Admin\Models\Orders_model;
 use Admin\Models\Staffs_model;
 use Admin\Models\Statuses_model;
-use ApplicationException;
 use Carbon\Carbon;
 use Igniter\Flame\Currency;
-use Request;
-use Template;
-use DB;
+use Igniter\Flame\Exception\ApplicationException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Thoughtco\KitchenDisplay\Models\Views as KitchenViews;
 
 /**
