@@ -173,8 +173,6 @@ class Summary extends \Admin\Classes\AdminController
     						$forget = true;
                         }
 
-                        }
-
                         if ($forget)
                         {
                             $menuItems->forget($key);
