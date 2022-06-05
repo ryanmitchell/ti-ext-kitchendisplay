@@ -52,7 +52,7 @@
 						@endswitch
 
 						@if($viewSettings->display['card_status'])
-							<h6 class="label label-default mt-2" style="background-color:{!! $order->status_color !!}">{{ $order->status_name }}</h6>
+							<h6 class="label label-default mt-2" style="background-color:{!! $order->status_color !!}!important">{{ $order->status_name }}</h6>
 						@endif
 
 						@if($viewSettings->display['card_items'])

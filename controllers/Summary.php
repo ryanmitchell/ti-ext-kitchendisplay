@@ -261,9 +261,9 @@ class Summary extends \Admin\Classes\AdminController
 							'status_name' => $order->status_name,
 							'status_color' => $order->status_color,
 							'buttons' => '
-			                	'.($viewSettings->display['button1_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button1_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button1_status'].'" style="background-color:'.$viewSettings->display['button1_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button1_text'].'</a>' : '').'
-								'.($viewSettings->display['button2_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button2_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button2_status'].'" style="background-color:'.$viewSettings->display['button2_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button2_text'].'</a>' : '').'
-								'.($viewSettings->display['button3_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button3_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button3_status'].'" style="background-color:'.$viewSettings->display['button3_color'].'";' : ' btn-light"').'>'.$viewSettings->display['button3_text'].'</a>' : '').'
+			                	'.($viewSettings->display['button1_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button1_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button1_status'].'" style="background-color:'.$viewSettings->display['button1_color'].'!important";' : ' btn-light"').'>'.$viewSettings->display['button1_text'].'</a>' : '').'
+								'.($viewSettings->display['button2_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button2_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button2_status'].'" style="background-color:'.$viewSettings->display['button2_color'].'!important";' : ' btn-light"').'>'.$viewSettings->display['button2_text'].'</a>' : '').'
+								'.($viewSettings->display['button3_enable'] ? '<a class="btn label-default'.($order->status_id != $viewSettings->display['button3_status'] ? '" href="'.$buttonUrl.$viewSettings->display['button3_status'].'" style="background-color:'.$viewSettings->display['button3_color'].'!important";' : ' btn-light"').'>'.$viewSettings->display['button3_text'].'</a>' : '').'
 							',
 							'assign' => $viewSettings->display['assign'] ? Staffs_model::getDropdownOptions() : '',
 							'assign_url' => $assignUrl,
